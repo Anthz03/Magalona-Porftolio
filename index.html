@@ -116,7 +116,8 @@
 
                         <div class="mt-16 md:mt-20">
                             <h1 class="font-light text-primary leading-[0.85] tracking-tightest text-[18vw] md:text-[14vw] lg:text-[11vw]">
-                                Hello
+                                <span class="sr-only">Hello</span>
+                                <span id="typewriter" aria-hidden="true">Hello</span><span class="typewriter-cursor" aria-hidden="true"></span>
                             </h1>
                             <p class="mt-6 text-sm md:text-base text-secondary max-w-md">
                                 — It's Kyle Anthony Magalona, an Information Systems student leading AI-driven, data-centric projects across full-stack development, system analysis, and UI/UX.
@@ -125,11 +126,9 @@
                     </div>
 
                     <div class="lg:col-span-5 order-first lg:order-last">
-                        <div class="relative w-full aspect-[4/5] bg-gradient-to-b from-tertiary to-white border border-secondary/10 overflow-hidden">
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <span class="text-secondary text-xs uppercase tracking-[0.3em]">Portrait</span>
-                            </div>
-                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(34,34,34,0.04),transparent_60%)]"></div>
+                        <div class="group relative w-full aspect-[4/5] bg-tertiary overflow-hidden">
+                            <img src="img/profile.jpg" alt="Portrait of Kyle Anthony Magalona" class="absolute inset-0 w-full h-full object-contain mix-blend-multiply transition-all duration-700 ease-out group-hover:opacity-0 group-hover:scale-105" loading="eager" />
+                            <img src="img/profile-2.jpg" alt="Portrait of Kyle Anthony Magalona — alternate" class="absolute inset-0 w-full h-full object-contain mix-blend-multiply opacity-0 scale-105 transition-all duration-700 ease-out group-hover:opacity-100 group-hover:scale-100" loading="lazy" aria-hidden="true" />
                         </div>
                     </div>
                 </div>
