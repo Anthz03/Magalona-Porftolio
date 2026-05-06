@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kyle Anthony Magalona — Systems Analyst & Developer</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="styles.css" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#222222',
+                        secondary: '#7B7B7B',
+                        tertiary: '#F8F8F8',
+                    },
+                    fontFamily: {
+                        sans: ['"Aronik TRIAL"', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+                    },
+                    letterSpacing: {
+                        'tightest': '-0.04em',
+                    },
+                },
+            },
+        };
+    </script>
+</head>
+
+<body class="bg-tertiary text-primary antialiased">
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-tertiary/80 backdrop-blur border-b border-primary/5">
+        <nav class="w-full px-6 md:px-12 lg:px-16 py-5 md:py-6 flex items-center justify-between">
+
+            <a href="#top" class="flex items-center gap-3 shrink-0" aria-label="Home">
+                <svg viewBox="0 0 40 40" class="w-8 h-8 md:w-9 md:h-9 text-primary" fill="currentColor" aria-hidden="true">
+                    <path d="M8 4 L20 14 L32 4 L28 18 L36 24 L24 26 L20 36 L16 26 L4 24 L12 18 Z" />
+                </svg>
+                <span class="hidden sm:inline text-sm tracking-tight font-medium">Kairuee</span>
+            </a>
+
+            <ul class="hidden md:flex items-center gap-8 lg:gap-12 text-sm text-primary">
+                <li><a href="#about" class="hover:text-secondary transition-colors">About</a></li>
+                <li><a href="#projects" class="hover:text-secondary transition-colors">Projects</a></li>
+                <li><a href="#skills" class="hover:text-secondary transition-colors">Skills</a></li>
+                <li><a href="#services" class="hover:text-secondary transition-colors">Services</a></li>
+                <li><a href="#experience" class="hover:text-secondary transition-colors">Experience</a></li>
+                <li><a href="#contact" class="hover:text-secondary transition-colors">Contact</a></li>
+            </ul>
+
+            <a href="#contact" class="hidden md:inline-flex items-center gap-1 text-sm border-b border-primary pb-0.5 hover:text-secondary hover:border-secondary transition-colors">
+                Book A Call
+                <span aria-hidden="true">↗</span>
+            </a>
+
+            <button id="menuBtn" type="button" class="md:hidden inline-flex flex-col gap-1.5 p-2" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+                <span class="block w-6 h-px bg-primary"></span>
+                <span class="block w-6 h-px bg-primary"></span>
+            </button>
+        </nav>
+
+        <div id="mobileMenu" class="md:hidden hidden border-t border-primary/5 bg-tertiary">
+            <ul class="flex flex-col px-6 py-4 gap-3 text-sm">
+                <li><a href="#about" class="block py-1">About</a></li>
+                <li><a href="#projects" class="block py-1">Projects</a></li>
+                <li><a href="#skills" class="block py-1">Skills</a></li>
+                <li><a href="#services" class="block py-1">Services</a></li>
+                <li><a href="#experience" class="block py-1">Experience</a></li>
+                <li><a href="#contact" class="block py-1">Contact</a></li>
+                <li class="pt-2"><a href="#contact" class="inline-flex items-center gap-1 border-b border-primary pb-0.5">Book A Call ↗</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main id="top" class="pt-24">
+
+        <section class="relative">
+
+            <div class="hidden md:flex absolute left-6 lg:left-10 top-10 bottom-10 flex-col items-center justify-between pointer-events-none z-10">
+                <span class="text-secondary text-xs tracking-widest uppercase [writing-mode:vertical-rl] rotate-180">
+                    Information Systems
+                </span>
+                <div class="w-px flex-1 bg-secondary/40 my-6"></div>
+                <span class="text-secondary text-xs tracking-widest [writing-mode:vertical-rl] rotate-180">
+                    2026
+                </span>
+            </div>
+
+            <div class="px-6 md:px-20 lg:px-28 pt-6 md:pt-10 pb-12">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-end">
+
+                    <div class="lg:col-span-7 flex flex-col justify-between min-h-[70vh]">
+
+                        <div class="flex flex-wrap gap-12 md:gap-16 pt-4 md:pt-6">
+                            <div>
+                                <p class="text-3xl md:text-4xl lg:text-5xl font-light text-primary tracking-tight">
+                                    <span class="align-top text-xl md:text-2xl mr-0.5">+</span>4
+                                </p>
+                                <p class="mt-1 text-xs md:text-sm text-secondary">Projects led</p>
+                            </div>
+
+                            <div>
+                                <p class="text-3xl md:text-4xl lg:text-5xl font-light text-primary tracking-tight">
+                                    3.95
+                                </p>
+                                <p class="mt-1 text-xs md:text-sm text-secondary">GPA · Dean's Lister</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-16 md:mt-20">
+                            <h1 class="font-light text-primary leading-[0.85] tracking-tightest text-[18vw] md:text-[14vw] lg:text-[11vw]">
+                                Hello
+                            </h1>
+                            <p class="mt-6 text-sm md:text-base text-secondary max-w-md">
+                                — It's Kyle Anthony Magalona, an Information Systems student leading AI-driven, data-centric projects across full-stack development, system analysis, and UI/UX.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-5 order-first lg:order-last">
+                        <div class="relative w-full aspect-[4/5] bg-gradient-to-b from-tertiary to-white border border-secondary/10 overflow-hidden">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span class="text-secondary text-xs uppercase tracking-[0.3em]">Portrait</span>
+                            </div>
+                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(34,34,34,0.04),transparent_60%)]"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="px-6 md:px-20 lg:px-28 pb-12">
+                <a href="#about" class="inline-flex items-center gap-3 text-sm text-primary hover:text-secondary transition-colors group">
+                    <span>Scroll down</span>
+                    <span class="inline-block transition-transform group-hover:translate-y-1" aria-hidden="true">↓</span>
+                </a>
+            </div>
+        </section>
+
+        <section id="about" class="px-6 md:px-20 lg:px-28 py-24 md:py-32 border-t border-primary/5">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+                <div class="lg:col-span-4">
+                    <p class="text-xs uppercase tracking-[0.3em] text-secondary">01 — About</p>
+                    <h2 class="mt-4 text-4xl md:text-5xl lg:text-6xl font-light leading-[0.95] tracking-tight">
+                        Student.<br />Project lead.<br />Builder.
+                    </h2>
+                </div>
+
+                <div class="lg:col-span-7 lg:col-start-6 grid grid-cols-1 md:grid-cols-2 gap-10 text-secondary">
+                    <p class="text-base leading-relaxed">
+                        I'm an Information Systems student at De La Salle - College of Saint Benilde, with a working background in full-stack development, systems analysis, and UI/UX design. I lead small teams that ship AI-driven, data-centric tools.
+                    </p>
+                    <p class="text-base leading-relaxed">
+                        My work tends to sit at the intersection of clean interfaces and the system models behind them — SRS, DFDs, use cases, and the database design that makes them real. I care about clarity, fairness, and tools that hold up under real use.
+                    </p>
+
+                    <div class="md:col-span-2 grid grid-cols-2 sm:grid-cols-3 gap-8 pt-8 border-t border-primary/5">
+                        <div>
+                            <p class="text-xs uppercase tracking-widest text-secondary">Focus</p>
+                            <p class="mt-2 text-primary">Systems · UI/UX</p>
+                        </div>
+                        <div>
+                            <p class="text-xs uppercase tracking-widest text-secondary">Stack</p>
+                            <p class="mt-2 text-primary">C# · Python · React</p>
+                        </div>
+                        <div>
+                            <p class="text-xs uppercase tracking-widest text-secondary">Based in</p>
+                            <p class="mt-2 text-primary">Manila, PH</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="px-6 md:px-20 lg:px-28 py-24 md:py-32 border-t border-primary/5">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end mb-16">
+                <div class="lg:col-span-7">
+                    <p class="text-xs uppercase tracking-[0.3em] text-secondary">02 — Skills</p>
+                    <h2 class="mt-4 text-4xl md:text-5xl lg:text-6xl font-light leading-[0.95] tracking-tight">
+                        Tools I work with.
+                    </h2>
+                </div>
+                <div class="lg:col-span-4 lg:col-start-9">
+                    <p class="text-secondary text-base leading-relaxed">
+                        The technical and interpersonal toolkit I bring to a team — picked up across coursework, hackathons, and project leads.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-px bg-primary/5 border border-primary/5">
+                <div class="bg-tertiary p-6 md:p-8">
+                    <p class="text-xs text-secondary">Languages</p>
+                    <p class="mt-3 text-lg md:text-xl text-primary">C# · Python</p>
+                </div>
+                <div class="bg-tertiary p-6 md:p-8">
+                    <p class="text-xs text-secondary">Languages</p>
+                    <p class="mt-3 text-lg md:text-xl text-primary">JavaScript</p>
+                </div>
+                <div class="bg-tertiary p-6 md:p-8">
+                    <p class="text-xs text-secondary">Frontend</p>
+                    <p class="mt-3 text-lg md:text-xl text-primary">React</p>
+                </div>
+                <div class="bg-tertiary p-6 md:p-8">
+                    <p class="text-xs text-secondary">Frontend</p>
+                    <p class="mt-3 text-lg md:text-xl text-primary">HTML · CSS</p>
+                </div>
+                <div class="bg-tertiary p-6 md:p-8">
+                    <p class="text-xs text-secondary">Backend</p>
+                    <p class="mt-3 text-lg md:text-xl text-primary">Django</p>
+                </div>
+                <div class="bg-tertiary p-6 md:p-8">
+                    <p class="text-xs text-secondary">Database</p>
+                    <p class="mt-3 text-lg md:text-xl text-primary">SQL</p>
+                </div>
+                <div class="bg-tertiary p-6 md:p-8">
+                    <p class="text-xs text-secondary">Tools</p>
+                    <p class="mt-3 text-lg md:text-xl text-primary">Git · GitHub</p>
+                </div>
+                <div class="bg-tertiary p-6 md:p-8">
+                    <p class="text-xs text-secondary">Design</p>
+                    <p class="mt-3 text-lg md:text-xl text-primary">Figma</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mt-16">
+                <div>
+                    <p class="text-xs uppercase tracking-widest text-secondary">Interpersonal</p>
+                    <ul class="mt-4 space-y-2 text-primary">
+                        <li>Leadership</li>
+                        <li>Adaptability & Time Management</li>
+                        <li>Problem-Solving & Communication</li>
+                    </ul>
+                </div>
+                <div>
+                    <p class="text-xs uppercase tracking-widest text-secondary">Interests</p>
+                    <ul class="mt-4 space-y-2 text-primary">
+                        <li>Figma UI/UX Design</li>
+                        <li>Subnetting</li>
+                        <li>Web Development</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="px-6 md:px-20 lg:px-28 py-24 md:py-32 border-t border-primary/5">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end mb-16">
+                <div class="lg:col-span-7">
+                    <p class="text-xs uppercase tracking-[0.3em] text-secondary">03 — Projects</p>
+                    <h2 class="mt-4 text-4xl md:text-5xl lg:text-6xl font-light leading-[0.95] tracking-tight">
+                        Selected work.
+                    </h2>
+                </div>
+                <div class="lg:col-span-4 lg:col-start-9">
+                    <p class="text-secondary text-base leading-relaxed">
+                        Hackathons, competitions, and academic systems I've helped lead, analyze, or build end-to-end.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12">
+
+                <article class="group">
+                    <div class="relative aspect-[4/3] bg-white border border-primary/5 overflow-hidden mb-5">
+                        <div class="absolute inset-0 flex items-center justify-center text-secondary text-xs uppercase tracking-[0.3em]">VerifAI</div>
+                    </div>
+                    <div class="flex items-start justify-between gap-6">
+                        <div>
+                            <p class="text-xs text-secondary">HackFest GDG Loyola · Mar 2026</p>
+                            <h3 class="mt-1 text-xl md:text-2xl font-medium tracking-tight">VerifAI</h3>
+                            <p class="mt-2 text-secondary text-sm leading-relaxed max-w-md">An AI Google Docs extension that cuts research verification time by 40% via a 100-point credibility score. Led system analysis end-to-end.</p>
+                            <p class="mt-3 text-xs text-secondary">Google Docs Add-on · AI · System Analysis</p>
+                        </div>
+                        <a href="#" class="shrink-0 text-sm border-b border-primary pb-0.5 hover:text-secondary hover:border-secondary transition-colors">View ↗</a>
+                    </div>
+                </article>
+
+                <article class="group">
+                    <div class="relative aspect-[4/3] bg-white border border-primary/5 overflow-hidden mb-5">
+                        <div class="absolute inset-0 flex items-center justify-center text-secondary text-xs uppercase tracking-[0.3em]">Pathingin</div>
+                    </div>
+                    <div class="flex items-start justify-between gap-6">
+                        <div>
+                            <p class="text-xs text-secondary">UPLB Warframes · Feb 2026</p>
+                            <h3 class="mt-1 text-xl md:text-2xl font-medium tracking-tight">Pathingin</h3>
+                            <p class="mt-2 text-secondary text-sm leading-relaxed max-w-md">UI/UX for an AI-driven real-time disaster navigation prototype. Ranked 10th of 20; designed transitions that simplified multi-agency data.</p>
+                            <p class="mt-3 text-xs text-secondary">Figma · UI/UX · Prototype</p>
+                        </div>
+                        <a href="#" class="shrink-0 text-sm border-b border-primary pb-0.5 hover:text-secondary hover:border-secondary transition-colors">View ↗</a>
+                    </div>
+                </article>
+
+                <article class="group">
+                    <div class="relative aspect-[4/3] bg-white border border-primary/5 overflow-hidden mb-5">
+                        <div class="absolute inset-0 flex items-center justify-center text-secondary text-xs uppercase tracking-[0.3em]">UniCheck PH</div>
+                    </div>
+                    <div class="flex items-start justify-between gap-6">
+                        <div>
+                            <p class="text-xs text-secondary">DLS-CSB · Sept – Dec 2025</p>
+                            <h3 class="mt-1 text-xl md:text-2xl font-medium tracking-tight">UniCheck PH</h3>
+                            <p class="mt-2 text-secondary text-sm leading-relaxed max-w-md">An AI-powered academic integrity platform — centralized plagiarism and AI detection with real-time dashboards. Authored the SRS, DFDs, use cases, and RTM as project lead.</p>
+                            <p class="mt-3 text-xs text-secondary">Systems Analysis · SRS · DFD · RTM</p>
+                        </div>
+                        <a href="#" class="shrink-0 text-sm border-b border-primary pb-0.5 hover:text-secondary hover:border-secondary transition-colors">View ↗</a>
+                    </div>
+                </article>
+
+                <article class="group">
+                    <div class="relative aspect-[4/3] bg-white border border-primary/5 overflow-hidden mb-5">
+                        <div class="absolute inset-0 flex items-center justify-center text-secondary text-xs uppercase tracking-[0.3em]">ClickShift</div>
+                    </div>
+                    <div class="flex items-start justify-between gap-6">
+                        <div>
+                            <p class="text-xs text-secondary">DLS-CSB · May – Aug 2025</p>
+                            <h3 class="mt-1 text-xl md:text-2xl font-medium tracking-tight">ClickShift</h3>
+                            <p class="mt-2 text-secondary text-sm leading-relaxed max-w-md">A web-based smart scheduling system with real-time updates, CSV/Excel parsing, and automated shift generation. Built conflict validation and rotation logic to eliminate overlaps.</p>
+                            <p class="mt-3 text-xs text-secondary">C# · ASP.NET · SQL</p>
+                        </div>
+                        <a href="#" class="shrink-0 text-sm border-b border-primary pb-0.5 hover:text-secondary hover:border-secondary transition-colors">View ↗</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section id="services" class="px-6 md:px-20 lg:px-28 py-24 md:py-32 border-t border-primary/5">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end mb-16">
+                <div class="lg:col-span-7">
+                    <p class="text-xs uppercase tracking-[0.3em] text-secondary">04 — Services</p>
+                    <h2 class="mt-4 text-4xl md:text-5xl lg:text-6xl font-light leading-[0.95] tracking-tight">
+                        How I can help.
+                    </h2>
+                </div>
+                <div class="lg:col-span-4 lg:col-start-9">
+                    <p class="text-secondary text-base leading-relaxed">
+                        Where my coursework, project leads, and competition work tend to add the most value to a team.
+                    </p>
+                </div>
+            </div>
+
+            <ul class="divide-y divide-primary/5 border-y border-primary/5">
+                <li class="grid grid-cols-1 md:grid-cols-12 gap-6 py-8 md:py-10 group">
+                    <span class="md:col-span-1 text-secondary text-sm">01</span>
+                    <h3 class="md:col-span-4 text-2xl md:text-3xl font-light tracking-tight">Full-Stack Development</h3>
+                    <p class="md:col-span-6 text-secondary leading-relaxed">Web platforms and internal tools across C#, Python/Django, and React — from data layer to interface.</p>
+                    <span class="md:col-span-1 text-right text-secondary group-hover:text-primary transition-colors">↗</span>
+                </li>
+                <li class="grid grid-cols-1 md:grid-cols-12 gap-6 py-8 md:py-10 group">
+                    <span class="md:col-span-1 text-secondary text-sm">02</span>
+                    <h3 class="md:col-span-4 text-2xl md:text-3xl font-light tracking-tight">Systems Analysis</h3>
+                    <p class="md:col-span-6 text-secondary leading-relaxed">SRS authoring, data flow diagrams, use cases, and requirement traceability — the documentation that makes a system buildable.</p>
+                    <span class="md:col-span-1 text-right text-secondary group-hover:text-primary transition-colors">↗</span>
+                </li>
+                <li class="grid grid-cols-1 md:grid-cols-12 gap-6 py-8 md:py-10 group">
+                    <span class="md:col-span-1 text-secondary text-sm">03</span>
+                    <h3 class="md:col-span-4 text-2xl md:text-3xl font-light tracking-tight">UI / UX Design</h3>
+                    <p class="md:col-span-6 text-secondary leading-relaxed">Figma-based interface design, prototyping, and transition work — focused on simplifying dense or multi-agency data.</p>
+                    <span class="md:col-span-1 text-right text-secondary group-hover:text-primary transition-colors">↗</span>
+                </li>
+                <li class="grid grid-cols-1 md:grid-cols-12 gap-6 py-8 md:py-10 group">
+                    <span class="md:col-span-1 text-secondary text-sm">04</span>
+                    <h3 class="md:col-span-4 text-2xl md:text-3xl font-light tracking-tight">Database Design</h3>
+                    <p class="md:col-span-6 text-secondary leading-relaxed">Schema modelling and SQL for academic and operational systems — built to be queryable, normalized, and easy to extend.</p>
+                    <span class="md:col-span-1 text-right text-secondary group-hover:text-primary transition-colors">↗</span>
+                </li>
+            </ul>
+        </section>
+
+        <section id="experience" class="px-6 md:px-20 lg:px-28 py-24 md:py-32 border-t border-primary/5">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 mb-16">
+                <div class="lg:col-span-7">
+                    <p class="text-xs uppercase tracking-[0.3em] text-secondary">05 — Experience</p>
+                    <h2 class="mt-4 text-4xl md:text-5xl lg:text-6xl font-light leading-[0.95] tracking-tight">
+                        A short timeline.
+                    </h2>
+                </div>
+            </div>
+
+            <ol class="relative border-l border-primary/10 ml-2 md:ml-4">
+                <li class="pl-8 md:pl-12 pb-12 relative">
+                    <span class="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-primary"></span>
+                    <p class="text-xs uppercase tracking-widest text-secondary">March 2026 · Quezon City</p>
+                    <h3 class="mt-2 text-xl md:text-2xl font-medium tracking-tight">Lead System Analyst · HackFest GDG Loyola</h3>
+                    <p class="mt-2 text-secondary leading-relaxed max-w-2xl">Led system analysis for VerifAI, an AI Google Docs extension cutting research verification time by 40% through a 100-point credibility score.</p>
+                </li>
+                <li class="pl-8 md:pl-12 pb-12 relative">
+                    <span class="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-primary"></span>
+                    <p class="text-xs uppercase tracking-widest text-secondary">Feb 16 – 23, 2026 · Laguna · Remote</p>
+                    <h3 class="mt-2 text-xl md:text-2xl font-medium tracking-tight">Web Design Contestant · UPLB Warframes</h3>
+                    <p class="mt-2 text-secondary leading-relaxed max-w-2xl">Ranked 10th of 20; designed UI/UX for Pathingin, an AI-driven real-time disaster navigation prototype. Built intuitive interfaces and transition animations that simplified complex multi-agency data.</p>
+                </li>
+                <li class="pl-8 md:pl-12 pb-12 relative">
+                    <span class="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-primary"></span>
+                    <p class="text-xs uppercase tracking-widest text-secondary">Sept – Dec 2025 · DLS-CSB</p>
+                    <h3 class="mt-2 text-xl md:text-2xl font-medium tracking-tight">Project Lead & System Analyst · UniCheck PH</h3>
+                    <p class="mt-2 text-secondary leading-relaxed max-w-2xl">Led an AI-powered academic integrity platform; authored the SRS and system models (DFD, use cases, RTM). Designed a centralized plagiarism and AI detection system with real-time dashboards and reporting.</p>
+                </li>
+                <li class="pl-8 md:pl-12 pb-12 relative">
+                    <span class="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-primary"></span>
+                    <p class="text-xs uppercase tracking-widest text-secondary">May – Aug 2025 · DLS-CSB</p>
+                    <h3 class="mt-2 text-xl md:text-2xl font-medium tracking-tight">System Developer · ClickShift</h3>
+                    <p class="mt-2 text-secondary leading-relaxed max-w-2xl">Built a web-based smart scheduling system with real-time updates, CSV/Excel parsing, and automated shift generation. Implemented conflict validation and shift rotation logic, improving fairness and eliminating overlaps.</p>
+                </li>
+                <li class="pl-8 md:pl-12 pb-12 relative">
+                    <span class="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-primary"></span>
+                    <p class="text-xs uppercase tracking-widest text-secondary">2024 – 2028 · Taft, Manila</p>
+                    <h3 class="mt-2 text-xl md:text-2xl font-medium tracking-tight">BS Information Systems · De La Salle - College of Saint Benilde</h3>
+                    <p class="mt-2 text-secondary leading-relaxed max-w-2xl">President's / Dean's Lister, 1st Year (GPA: 3.95). Coursework: UIUXDES, Web Development, Systems Analysis, Database Design.</p>
+                </li>
+                <li class="pl-8 md:pl-12 relative">
+                    <span class="absolute -left-[5px] top-1.5 w-2 h-2 rounded-full bg-primary"></span>
+                    <p class="text-xs uppercase tracking-widest text-secondary">July 2022 – April 2024 · Intramuros, Manila</p>
+                    <h3 class="mt-2 text-xl md:text-2xl font-medium tracking-tight">ICT Strand · Colegio de San Juan de Letrán</h3>
+                    <p class="mt-2 text-secondary leading-relaxed max-w-2xl">Information and Communications Technology. Graduated With Honors (GPA: 94.3).</p>
+                </li>
+            </ol>
+        </section>
+
+        <section id="contact" class="px-6 md:px-20 lg:px-28 py-24 md:py-32 border-t border-primary/5">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
+
+                <div class="lg:col-span-5">
+                    <p class="text-xs uppercase tracking-[0.3em] text-secondary">06 — Contact</p>
+                    <h2 class="mt-4 text-4xl md:text-5xl lg:text-6xl font-light leading-[0.95] tracking-tight">
+                        Let's build<br />something<br />useful.
+                    </h2>
+
+                    <div class="mt-12 space-y-6 text-secondary">
+                        <div>
+                            <p class="text-xs uppercase tracking-widest">Email</p>
+                            <a href="mailto:kyleanthiny7@gmail.com" class="mt-1 block text-primary hover:text-secondary transition-colors">kyleanthiny7@gmail.com</a>
+                        </div>
+                        <div>
+                            <p class="text-xs uppercase tracking-widest">Phone</p>
+                            <a href="tel:+639209469837" class="mt-1 block text-primary hover:text-secondary transition-colors">+63 920 946 9837</a>
+                        </div>
+                        <div>
+                            <p class="text-xs uppercase tracking-widest">Based in</p>
+                            <p class="mt-1 text-primary">Manila, Philippines</p>
+                        </div>
+                        <div>
+                            <p class="text-xs uppercase tracking-widest">Elsewhere</p>
+                            <div class="mt-2 flex flex-wrap gap-x-6 gap-y-2 text-primary">
+                                <a href="https://linkedin.com/in/kyle-anthony-magalona" target="_blank" rel="noopener" class="border-b border-primary pb-0.5 hover:text-secondary hover:border-secondary transition-colors">LinkedIn</a>
+                                <a href="https://github.com/Anthz03" target="_blank" rel="noopener" class="border-b border-primary pb-0.5 hover:text-secondary hover:border-secondary transition-colors">GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <form id="contactForm" class="lg:col-span-6 lg:col-start-7 space-y-8" novalidate>
+                    <div>
+                        <label for="name" class="block text-xs uppercase tracking-widest text-secondary">Name</label>
+                        <input id="name" name="name" type="text" required class="mt-2 w-full bg-transparent border-b border-primary/20 focus:border-primary outline-none py-3 text-primary placeholder:text-secondary" placeholder="Your name" />
+                    </div>
+                    <div>
+                        <label for="email" class="block text-xs uppercase tracking-widest text-secondary">Email</label>
+                        <input id="email" name="email" type="email" required class="mt-2 w-full bg-transparent border-b border-primary/20 focus:border-primary outline-none py-3 text-primary placeholder:text-secondary" placeholder="you@domain.com" />
+                    </div>
+                    <div>
+                        <label for="message" class="block text-xs uppercase tracking-widest text-secondary">Message</label>
+                        <textarea id="message" name="message" rows="5" required class="mt-2 w-full bg-transparent border-b border-primary/20 focus:border-primary outline-none py-3 text-primary placeholder:text-secondary resize-none" placeholder="Tell me about the project"></textarea>
+                    </div>
+
+                    <div class="flex items-center justify-between gap-6 pt-2">
+                        <p id="formStatus" class="text-xs text-secondary" aria-live="polite"></p>
+                        <button type="submit" class="inline-flex items-center gap-2 text-sm border-b border-primary pb-0.5 hover:text-secondary hover:border-secondary transition-colors">
+                            Send message
+                            <span aria-hidden="true">→</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="px-6 md:px-20 lg:px-28 py-10 border-t border-primary/5">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 text-sm text-secondary">
+            <p>© <span id="year"></span> Kyle Anthony Magalona. All rights reserved.</p>
+            <div class="flex flex-wrap gap-x-6 gap-y-2">
+                <a href="https://linkedin.com/in/kyle-anthony-magalona" target="_blank" rel="noopener" class="hover:text-primary transition-colors">LinkedIn</a>
+                <a href="https://github.com/Kairuee" target="_blank" rel="noopener" class="hover:text-primary transition-colors">GitHub</a>
+                <a href="mailto:kyleanthiny7@gmail.com" class="hover:text-primary transition-colors">Email</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
