@@ -44,6 +44,49 @@
         sectionsToReveal.forEach((el) => el.classList.add('is-visible'));
     }
 
+    const typewriterEl = document.getElementById('typewriter');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (typewriterEl && !reduceMotion) {
+        const greetings = ['Hello', '안녕', '你好', 'こんにちは', 'Kamusta'];
+        const typeSpeed = 110;
+        const deleteSpeed = 55;
+        const pauseFull = 1600;
+        const pauseEmpty = 350;
+
+        let wordIndex = 0;
+        let charIndex = greetings[0].length;
+        let deleting = true;
+        typewriterEl.textContent = greetings[0];
+
+        const tick = () => {
+            const current = greetings[wordIndex];
+
+            if (!deleting) {
+                charIndex += 1;
+                typewriterEl.textContent = current.slice(0, charIndex);
+                if (charIndex === current.length) {
+                    deleting = true;
+                    setTimeout(tick, pauseFull);
+                    return;
+                }
+                setTimeout(tick, typeSpeed);
+            } else {
+                charIndex -= 1;
+                typewriterEl.textContent = current.slice(0, charIndex);
+                if (charIndex === 0) {
+                    deleting = false;
+                    wordIndex = (wordIndex + 1) % greetings.length;
+                    setTimeout(tick, pauseEmpty);
+                    return;
+                }
+                setTimeout(tick, deleteSpeed);
+            }
+        };
+
+        setTimeout(tick, 1800);
+    }
+
     const form = document.getElementById('contactForm');
     const status = document.getElementById('formStatus');
 

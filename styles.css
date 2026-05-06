@@ -52,6 +52,22 @@ textarea:-webkit-autofill {
     transform: translateY(0);
 }
 
+.typewriter-cursor {
+    display: inline-block;
+    width: 0.05em;
+    height: 0.78em;
+    margin-left: 0.04em;
+    background: currentColor;
+    vertical-align: -0.05em;
+    animation: typewriter-blink 1.05s steps(2, jump-none) infinite;
+}
+
+@keyframes typewriter-blink {
+    50% {
+        opacity: 0;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
@@ -61,5 +77,9 @@ textarea:-webkit-autofill {
         opacity: 1;
         transform: none;
         transition: none;
+    }
+
+    .typewriter-cursor {
+        animation: none;
     }
 }
