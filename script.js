@@ -48,7 +48,7 @@
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (typewriterEl && !reduceMotion) {
-        const greetings = ['Hello', '안녕', '你好', 'こんにちは', 'Kamusta'];
+        const greetings = ['Hello', '안녕', '你好', 'こんにちは', 'Kumusta'];
         const typeSpeed = 110;
         const deleteSpeed = 55;
         const pauseFull = 1600;
@@ -86,6 +86,180 @@
 
         setTimeout(tick, 1800);
     }
+
+    const projectsData = {
+        verifai: {
+            title: 'VerifAI',
+            meta: 'HackFest GDG Loyola · March 2026',
+            role: 'Lead System Analyst',
+            image: 'img/VerifAI.png',
+            description: [
+                'VerifAI is an AI-powered Google Docs extension that helps researchers and students verify the credibility of their sources in real time, directly inside the document they\'re writing.',
+                'Built during HackFest GDG Loyola, the tool surfaces a 100-point credibility score for each citation — cutting research verification time by roughly 40% compared to manual fact-checking workflows.',
+            ],
+            bullets: [
+                'Led system analysis from concept through to delivery',
+                'Designed the 100-point credibility scoring model',
+                'Authored data flow diagrams, use cases, and the SRS',
+                'Coordinated with the dev team on Google Workspace API integration',
+            ],
+            stack: 'Google Docs Add-on · AI · System Analysis',
+            github: 'https://github.com/Anthz03/perosnal-portfolio-website',
+        },
+        pathingin: {
+            title: 'Pathingin',
+            meta: 'UPLB Warframes Web Design Competition · February 16 – 23, 2026',
+            role: 'Web Design Contestant',
+            image: '',
+            description: [
+                'Pathingin is an AI-driven, real-time disaster navigation prototype designed for multi-agency emergency response in the Philippines.',
+                'Designed during the UPLB Warframes Web Design Competition, the project focused on simplifying complex multi-agency disaster data into clean, navigable interfaces — with motion used purposefully to clarify rather than decorate.',
+            ],
+            bullets: [
+                'Designed UI/UX end-to-end in Figma',
+                'Built intuitive flows for end users in high-stress scenarios',
+                'Crafted transition animations to clarify multi-agency data',
+                'Ranked 10th of 20 competing teams nationwide',
+            ],
+            stack: 'Figma · UI/UX · Prototype',
+            github: 'https://github.com/Anthz03/perosnal-portfolio-website',
+        },
+        unicheck: {
+            title: 'UniCheck PH',
+            meta: 'DLS-CSB · September – December 2025',
+            role: 'Project Lead & System Analyst',
+            image: '',
+            description: [
+                'UniCheck PH is an AI-powered academic integrity platform built during my second-year systems coursework at De La Salle - College of Saint Benilde.',
+                'I led the project end-to-end — authoring the full SRS, modeling the system through DFDs and use cases, and tracking requirements via the RTM. The platform centralizes plagiarism and AI detection so institutions can run academic checks from a single dashboard.',
+            ],
+            bullets: [
+                'Led the team as project lead and system analyst',
+                'Authored the SRS and complete system documentation',
+                'Designed centralized plagiarism and AI detection workflows',
+                'Modeled real-time dashboards and reporting features',
+            ],
+            stack: 'Systems Analysis · SRS · DFD · RTM',
+            github: 'https://github.com/Anthz03/perosnal-portfolio-website',
+        },
+        clickshift: {
+            title: 'ClickShift',
+            meta: 'DLS-CSB · May – August 2025',
+            role: 'System Developer',
+            image: '',
+            description: [
+                'ClickShift is a web-based smart scheduling system that automates shift generation and rotation for organizations managing rotating staff — built to solve the fairness and overlap problems that come with manual scheduling.',
+                'I built the platform end-to-end during my first-year systems coursework, focusing on real input formats (CSV/Excel) and the scheduling logic that actually decides who works when.',
+            ],
+            bullets: [
+                'Built the full web-based scheduling system end-to-end',
+                'Implemented CSV/Excel parsing for staff data import',
+                'Designed conflict validation to eliminate scheduling overlaps',
+                'Wrote shift rotation logic that improves fairness over time',
+            ],
+            stack: 'C# · ASP.NET · SQL',
+            github: 'https://github.com/Anthz03/perosnal-portfolio-website',
+        },
+    };
+
+    const modal = document.getElementById('projectModal');
+    const modalBackdrop = document.getElementById('projectModalBackdrop');
+    const modalClose = document.getElementById('projectModalClose');
+    const modalImage = document.getElementById('projectModalImage');
+    const modalImageWrap = document.getElementById('projectModalImageWrap');
+    const modalTitle = document.getElementById('projectModalTitle');
+    const modalMeta = document.getElementById('projectModalMeta');
+    const modalRole = document.getElementById('projectModalRole');
+    const modalDescription = document.getElementById('projectModalDescription');
+    const modalBullets = document.getElementById('projectModalBullets');
+    const modalStack = document.getElementById('projectModalStack');
+    const modalLink = document.getElementById('projectModalLink');
+
+    let lastTrigger = null;
+
+    const setText = (el, value) => {
+        if (el) el.textContent = value || '';
+    };
+
+    const openProjectModal = (key, trigger) => {
+        const data = projectsData[key];
+        if (!data || !modal) return;
+
+        if (data.image) {
+            modalImage.src = data.image;
+            modalImage.alt = data.title;
+            modalImageWrap.classList.remove('hidden');
+        } else {
+            modalImage.removeAttribute('src');
+            modalImageWrap.classList.add('hidden');
+        }
+
+        setText(modalMeta, data.meta);
+        setText(modalTitle, data.title);
+        setText(modalRole, data.role);
+        setText(modalStack, data.stack);
+
+        modalDescription.innerHTML = (data.description || [])
+            .map((p) => `<p>${p}</p>`)
+            .join('');
+
+        modalBullets.innerHTML = (data.bullets || [])
+            .map(
+                (b) =>
+                    `<li class="flex gap-3"><span class="text-secondary mt-1">·</span><span>${b}</span></li>`
+            )
+            .join('');
+
+        if (data.github) {
+            modalLink.href = data.github;
+            modalLink.classList.remove('hidden');
+        } else {
+            modalLink.classList.add('hidden');
+        }
+
+        lastTrigger = trigger || null;
+
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('modal-open');
+        requestAnimationFrame(() => modal.classList.add('is-open'));
+
+        modalClose?.focus();
+    };
+
+    const closeProjectModal = () => {
+        if (!modal) return;
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('modal-open');
+
+        setTimeout(() => {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }, 250);
+
+        if (lastTrigger && typeof lastTrigger.focus === 'function') {
+            lastTrigger.focus();
+        }
+        lastTrigger = null;
+    };
+
+    document.querySelectorAll('[data-project-trigger]').forEach((btn) => {
+        btn.addEventListener('click', (event) => {
+            event.preventDefault();
+            openProjectModal(btn.dataset.projectTrigger, btn);
+        });
+    });
+
+    modalBackdrop?.addEventListener('click', closeProjectModal);
+    modalClose?.addEventListener('click', closeProjectModal);
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+            closeProjectModal();
+        }
+    });
 
     const form = document.getElementById('contactForm');
     const status = document.getElementById('formStatus');
