@@ -116,7 +116,8 @@
 
                         <div class="mt-16 md:mt-20">
                             <h1 class="font-light text-primary leading-[0.85] tracking-tightest text-[18vw] md:text-[14vw] lg:text-[11vw]">
-                                Hello
+                                <span class="sr-only">Hello</span>
+                                <span id="typewriter" aria-hidden="true">Hello</span><span class="typewriter-cursor" aria-hidden="true"></span>
                             </h1>
                             <p class="mt-6 text-sm md:text-base text-secondary max-w-md">
                                 — It's Kyle Anthony Magalona, an Information Systems student leading AI-driven, data-centric projects across full-stack development, system analysis, and UI/UX.
@@ -125,11 +126,9 @@
                     </div>
 
                     <div class="lg:col-span-5 order-first lg:order-last">
-                        <div class="relative w-full aspect-[4/5] bg-gradient-to-b from-tertiary to-white border border-secondary/10 overflow-hidden">
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <span class="text-secondary text-xs uppercase tracking-[0.3em]">Portrait</span>
-                            </div>
-                            <div class="absolute inset-0 bg-[radial-gradient(circle_at_70%_30%,rgba(34,34,34,0.04),transparent_60%)]"></div>
+                        <div class="group relative w-full aspect-[4/5] bg-tertiary overflow-hidden">
+                            <img src="img/profile.jpg" alt="Portrait of Kyle Anthony Magalona" class="absolute inset-0 w-full h-full object-contain mix-blend-multiply transition-all duration-700 ease-out group-hover:opacity-0 group-hover:scale-105" loading="eager" />
+                            <img src="img/profile-2.jpg" alt="Portrait of Kyle Anthony Magalona — alternate" class="absolute inset-0 w-full h-full object-contain mix-blend-multiply opacity-0 scale-105 transition-all duration-700 ease-out group-hover:opacity-100 group-hover:scale-100" loading="lazy" aria-hidden="true" />
                         </div>
                     </div>
                 </div>
@@ -265,9 +264,9 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12">
 
-                <article class="group">
+                <article class="group relative">
                     <div class="relative aspect-[4/3] bg-white border border-primary/5 overflow-hidden mb-5">
-                        <div class="absolute inset-0 flex items-center justify-center text-secondary text-xs uppercase tracking-[0.3em]">VerifAI</div>
+                        <img src="img/VerifAI.png" alt="VerifAI — AI Google Docs extension for research verification" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" />
                     </div>
                     <div class="flex items-start justify-between gap-6">
                         <div>
@@ -276,11 +275,11 @@
                             <p class="mt-2 text-secondary text-sm leading-relaxed max-w-md">An AI Google Docs extension that cuts research verification time by 40% via a 100-point credibility score. Led system analysis end-to-end.</p>
                             <p class="mt-3 text-xs text-secondary">Google Docs Add-on · AI · System Analysis</p>
                         </div>
-                        <a href="#" class="shrink-0 text-sm border-b border-primary pb-0.5 hover:text-secondary hover:border-secondary transition-colors">View ↗</a>
+                        <button type="button" data-project-trigger="verifai" class="shrink-0 text-sm border-b border-primary pb-0.5 hover:text-secondary hover:border-secondary transition-colors after:content-[''] after:absolute after:inset-0">View ↗</button>
                     </div>
                 </article>
 
-                <article class="group">
+                <article class="group relative">
                     <div class="relative aspect-[4/3] bg-white border border-primary/5 overflow-hidden mb-5">
                         <div class="absolute inset-0 flex items-center justify-center text-secondary text-xs uppercase tracking-[0.3em]">Pathingin</div>
                     </div>
@@ -291,11 +290,11 @@
                             <p class="mt-2 text-secondary text-sm leading-relaxed max-w-md">UI/UX for an AI-driven real-time disaster navigation prototype. Ranked 10th of 20; designed transitions that simplified multi-agency data.</p>
                             <p class="mt-3 text-xs text-secondary">Figma · UI/UX · Prototype</p>
                         </div>
-                        <a href="#" class="shrink-0 text-sm border-b border-primary pb-0.5 hover:text-secondary hover:border-secondary transition-colors">View ↗</a>
+                        <button type="button" data-project-trigger="pathingin" class="shrink-0 text-sm border-b border-primary pb-0.5 hover:text-secondary hover:border-secondary transition-colors after:content-[''] after:absolute after:inset-0">View ↗</button>
                     </div>
                 </article>
 
-                <article class="group">
+                <article class="group relative">
                     <div class="relative aspect-[4/3] bg-white border border-primary/5 overflow-hidden mb-5">
                         <div class="absolute inset-0 flex items-center justify-center text-secondary text-xs uppercase tracking-[0.3em]">UniCheck PH</div>
                     </div>
@@ -306,11 +305,11 @@
                             <p class="mt-2 text-secondary text-sm leading-relaxed max-w-md">An AI-powered academic integrity platform — centralized plagiarism and AI detection with real-time dashboards. Authored the SRS, DFDs, use cases, and RTM as project lead.</p>
                             <p class="mt-3 text-xs text-secondary">Systems Analysis · SRS · DFD · RTM</p>
                         </div>
-                        <a href="#" class="shrink-0 text-sm border-b border-primary pb-0.5 hover:text-secondary hover:border-secondary transition-colors">View ↗</a>
+                        <button type="button" data-project-trigger="unicheck" class="shrink-0 text-sm border-b border-primary pb-0.5 hover:text-secondary hover:border-secondary transition-colors after:content-[''] after:absolute after:inset-0">View ↗</button>
                     </div>
                 </article>
 
-                <article class="group">
+                <article class="group relative">
                     <div class="relative aspect-[4/3] bg-white border border-primary/5 overflow-hidden mb-5">
                         <div class="absolute inset-0 flex items-center justify-center text-secondary text-xs uppercase tracking-[0.3em]">ClickShift</div>
                     </div>
@@ -321,7 +320,7 @@
                             <p class="mt-2 text-secondary text-sm leading-relaxed max-w-md">A web-based smart scheduling system with real-time updates, CSV/Excel parsing, and automated shift generation. Built conflict validation and rotation logic to eliminate overlaps.</p>
                             <p class="mt-3 text-xs text-secondary">C# · ASP.NET · SQL</p>
                         </div>
-                        <a href="#" class="shrink-0 text-sm border-b border-primary pb-0.5 hover:text-secondary hover:border-secondary transition-colors">View ↗</a>
+                        <button type="button" data-project-trigger="clickshift" class="shrink-0 text-sm border-b border-primary pb-0.5 hover:text-secondary hover:border-secondary transition-colors after:content-[''] after:absolute after:inset-0">View ↗</button>
                     </div>
                 </article>
             </div>
@@ -488,6 +487,46 @@
             </div>
         </div>
     </footer>
+
+    <div id="projectModal" class="fixed inset-0 z-[60] hidden items-center justify-center px-4 py-8 md:py-12" role="dialog" aria-modal="true" aria-labelledby="projectModalTitle" aria-hidden="true">
+        <div id="projectModalBackdrop" class="absolute inset-0 bg-primary/50 backdrop-blur-sm"></div>
+
+        <div id="projectModalPanel" class="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-tertiary border border-primary/10 shadow-2xl">
+            <button id="projectModalClose" type="button" class="absolute top-4 right-4 z-10 w-10 h-10 inline-flex items-center justify-center text-primary hover:text-secondary transition-colors bg-tertiary/80 backdrop-blur rounded-full" aria-label="Close project details">
+                <svg viewBox="0 0 24 24" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <path d="M6 6 L18 18 M6 18 L18 6" stroke-linecap="round" />
+                </svg>
+            </button>
+
+            <div id="projectModalImageWrap" class="relative aspect-[16/9] bg-white border-b border-primary/5">
+                <img id="projectModalImage" src="" alt="" class="absolute inset-0 w-full h-full object-cover" />
+            </div>
+
+            <div class="p-8 md:p-12">
+                <p id="projectModalMeta" class="text-xs uppercase tracking-[0.3em] text-secondary"></p>
+                <h3 id="projectModalTitle" class="mt-3 text-3xl md:text-4xl font-light tracking-tight leading-tight"></h3>
+                <p id="projectModalRole" class="mt-2 text-sm text-secondary"></p>
+
+                <div id="projectModalDescription" class="mt-6 space-y-4 text-secondary leading-relaxed"></div>
+
+                <div id="projectModalHighlightsWrap" class="mt-8">
+                    <p class="text-xs uppercase tracking-widest text-secondary">Highlights</p>
+                    <ul id="projectModalBullets" class="mt-3 space-y-2 text-primary text-sm md:text-base"></ul>
+                </div>
+
+                <div class="mt-10 pt-8 border-t border-primary/10 flex flex-wrap items-center justify-between gap-4">
+                    <div>
+                        <p class="text-xs uppercase tracking-widest text-secondary">Stack</p>
+                        <p id="projectModalStack" class="mt-1 text-sm text-primary"></p>
+                    </div>
+                    <a id="projectModalLink" href="#" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-sm border-b border-primary pb-0.5 hover:text-secondary hover:border-secondary transition-colors">
+                        View on GitHub
+                        <span aria-hidden="true">↗</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

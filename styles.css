@@ -52,6 +52,44 @@ textarea:-webkit-autofill {
     transform: translateY(0);
 }
 
+.typewriter-cursor {
+    display: inline-block;
+    width: 0.05em;
+    height: 0.78em;
+    margin-left: 0.04em;
+    background: currentColor;
+    vertical-align: -0.05em;
+    animation: typewriter-blink 1.05s steps(2, jump-none) infinite;
+}
+
+#projectModal {
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+#projectModal.is-open {
+    opacity: 1;
+}
+
+#projectModalPanel {
+    transform: translateY(12px) scale(0.98);
+    transition: transform 0.3s ease;
+}
+
+#projectModal.is-open #projectModalPanel {
+    transform: translateY(0) scale(1);
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+@keyframes typewriter-blink {
+    50% {
+        opacity: 0;
+    }
+}
+
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
@@ -60,6 +98,15 @@ textarea:-webkit-autofill {
     .reveal {
         opacity: 1;
         transform: none;
+        transition: none;
+    }
+
+    .typewriter-cursor {
+        animation: none;
+    }
+
+    #projectModal,
+    #projectModalPanel {
         transition: none;
     }
 }
