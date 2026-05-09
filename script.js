@@ -104,13 +104,14 @@
                 'Coordinated with the dev team on Google Workspace API integration',
             ],
             stack: 'Google Docs Add-on · AI · System Analysis',
-            github: 'https://github.com/Anthz03/perosnal-portfolio-website',
+            linkUrl: 'https://github.com/abbychiu7/hackfest26',
+            linkLabel: 'View on GitHub',
         },
         pathingin: {
             title: 'Pathingin',
             meta: 'UPLB Warframes Web Design Competition · February 16 – 23, 2026',
             role: 'Web Design Contestant',
-            image: '',
+            image: 'img/PATHINGIN.png',
             description: [
                 'Pathingin is an AI-driven, real-time disaster navigation prototype designed for multi-agency emergency response in the Philippines.',
                 'Designed during the UPLB Warframes Web Design Competition, the project focused on simplifying complex multi-agency disaster data into clean, navigable interfaces — with motion used purposefully to clarify rather than decorate.',
@@ -119,16 +120,17 @@
                 'Designed UI/UX end-to-end in Figma',
                 'Built intuitive flows for end users in high-stress scenarios',
                 'Crafted transition animations to clarify multi-agency data',
-                'Ranked 10th of 20 competing teams nationwide',
+                'Ranked 10th of 20 competing teams',
             ],
             stack: 'Figma · UI/UX · Prototype',
-            github: 'https://github.com/Anthz03/perosnal-portfolio-website',
+            linkUrl: 'https://www.figma.com/design/asr2xN8vTSPKvUM7tEcYpv/PatHingin-TEAM-VION?node-id=2010-224&t=5aMrwzpmLliFPtjE-1',
+            linkLabel: 'View on Figma',
         },
         unicheck: {
             title: 'UniCheck PH',
             meta: 'DLS-CSB · September – December 2025',
             role: 'Project Lead & System Analyst',
-            image: '',
+            image: 'img/UniCheck.png',
             description: [
                 'UniCheck PH is an AI-powered academic integrity platform built during my second-year systems coursework at De La Salle - College of Saint Benilde.',
                 'I led the project end-to-end — authoring the full SRS, modeling the system through DFDs and use cases, and tracking requirements via the RTM. The platform centralizes plagiarism and AI detection so institutions can run academic checks from a single dashboard.',
@@ -140,13 +142,14 @@
                 'Modeled real-time dashboards and reporting features',
             ],
             stack: 'Systems Analysis · SRS · DFD · RTM',
-            github: 'https://github.com/Anthz03/perosnal-portfolio-website',
+            linkUrl: 'https://docs.google.com/document/d/1tH4VAXwsYBH9bsY_kx1QUurJaq0kiJfmUIuHY_NfrVQ/edit?usp=sharing',
+            linkLabel: 'View document',
         },
         clickshift: {
             title: 'ClickShift',
             meta: 'DLS-CSB · May – August 2025',
             role: 'System Developer',
-            image: '',
+            image: 'img/ClickShift.png',
             description: [
                 'ClickShift is a web-based smart scheduling system that automates shift generation and rotation for organizations managing rotating staff — built to solve the fairness and overlap problems that come with manual scheduling.',
                 'I built the platform end-to-end during my first-year systems coursework, focusing on real input formats (CSV/Excel) and the scheduling logic that actually decides who works when.',
@@ -158,7 +161,6 @@
                 'Wrote shift rotation logic that improves fairness over time',
             ],
             stack: 'C# · ASP.NET · SQL',
-            github: 'https://github.com/Anthz03/perosnal-portfolio-website',
         },
     };
 
@@ -210,8 +212,12 @@
             )
             .join('');
 
-        if (data.github) {
-            modalLink.href = data.github;
+        const linkUrl = data.linkUrl || data.github;
+        const linkLabel = data.linkLabel || (data.github ? 'View on GitHub' : 'View project');
+
+        if (linkUrl) {
+            modalLink.href = linkUrl;
+            modalLink.innerHTML = `${linkLabel} <span aria-hidden="true">↗</span>`;
             modalLink.classList.remove('hidden');
         } else {
             modalLink.classList.add('hidden');
