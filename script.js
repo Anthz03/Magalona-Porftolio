@@ -267,6 +267,44 @@
         }
     });
 
+    const journeySlider = document.querySelector('.journey-slider');
+    const journeyTrack = document.querySelector('.journey-track');
+    const journeySection = document.getElementById('journey');
+
+    if (journeySlider && journeyTrack && journeySection && !reduceMotion) {
+        const initMarquee = () => {
+            const slides = journeyTrack.querySelectorAll('.journey-slide');
+            if (slides.length < 9) return;
+
+            // Pixel distance between slide[0] and its first duplicate (slide[8])
+            const halfOffset =
+                slides[8].getBoundingClientRect().left -
+                slides[0].getBoundingClientRect().left;
+
+            const anim = journeyTrack.animate(
+                [
+                    { transform: 'translateX(0px)' },
+                    { transform: `translateX(-${halfOffset}px)` }
+                ],
+                { duration: 52000, iterations: Infinity, easing: 'linear' }
+            );
+
+            journeySlider.addEventListener('mouseenter', () => anim.pause());
+            journeySlider.addEventListener('mouseleave', () => anim.play());
+        };
+
+        const journeyObserver = new IntersectionObserver(
+            (entries) => {
+                if (entries[0].isIntersecting) {
+                    initMarquee();
+                    journeyObserver.disconnect();
+                }
+            },
+            { threshold: 0.1 }
+        );
+        journeyObserver.observe(journeySection);
+    }
+
     const form = document.getElementById('contactForm');
     const status = document.getElementById('formStatus');
 

@@ -84,6 +84,94 @@ body.modal-open {
     overflow: hidden;
 }
 
+.journey-slider {
+    overflow: hidden;
+    border-radius: 1.5rem;
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(0, 0, 0, 0.5) 5%,
+        black 13%,
+        black 87%,
+        rgba(0, 0, 0, 0.5) 95%,
+        transparent 100%
+    );
+    mask-image: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(0, 0, 0, 0.5) 5%,
+        black 13%,
+        black 87%,
+        rgba(0, 0, 0, 0.5) 95%,
+        transparent 100%
+    );
+}
+
+.journey-track {
+    display: flex;
+    gap: 1.5rem;
+    padding: 2rem 0.5rem;
+    will-change: transform;
+}
+
+.journey-slide {
+    flex: 0 0 20rem;
+    border-radius: 1.25rem;
+    overflow: hidden;
+    border: 1px solid rgba(34, 34, 34, 0.07);
+    background: #ffffff;
+    box-shadow:
+        0 2px 4px rgba(34, 34, 34, 0.04),
+        0 8px 24px rgba(34, 34, 34, 0.06);
+    transition:
+        transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    cursor: default;
+}
+
+.journey-slide:hover {
+    transform: translateY(-10px);
+    box-shadow:
+        0 12px 32px rgba(34, 34, 34, 0.09),
+        0 32px 72px rgba(34, 34, 34, 0.08);
+}
+
+.journey-slide img {
+    width: 100%;
+    height: 13rem;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(20%) brightness(0.95) contrast(1.02);
+    transition:
+        filter 0.65s ease,
+        transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    transform-origin: center;
+}
+
+.journey-slide:hover img {
+    filter: grayscale(0%) brightness(1.03) contrast(1);
+    transform: scale(1.07);
+}
+
+.journey-slide-content {
+    padding: 1.125rem 1.25rem 1.375rem;
+    border-top: 1px solid rgba(34, 34, 34, 0.05);
+}
+
+.journey-slide-title {
+    font-size: 0.625rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #7B7B7B;
+}
+
+.journey-slide-text {
+    margin-top: 0.5rem;
+    color: #222222;
+    line-height: 1.55;
+    font-size: 0.875rem;
+}
+
 @keyframes typewriter-blink {
     50% {
         opacity: 0;
@@ -109,4 +197,5 @@ body.modal-open {
     #projectModalPanel {
         transition: none;
     }
+
 }
