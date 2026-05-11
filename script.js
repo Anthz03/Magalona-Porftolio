@@ -1,6 +1,29 @@
 (() => {
     'use strict';
 
+    const themeToggle = document.getElementById('themeToggle');
+    const iconMoon = document.getElementById('iconMoon');
+    const iconSun = document.getElementById('iconSun');
+    const profileImg = document.getElementById('profileImg');
+    const profileImg2 = document.getElementById('profileImg2');
+
+    const syncIcons = () => {
+        const isDark = document.documentElement.classList.contains('dark');
+        iconMoon?.classList.toggle('hidden', isDark);
+        iconSun?.classList.toggle('hidden', !isDark);
+        if (profileImg)  profileImg.src  = isDark ? 'img/profile-dark.png'  : 'img/profile.jpg';
+        if (profileImg2) profileImg2.src = isDark ? 'img/profile2-dark.png' : 'img/profile-2.jpg';
+    };
+    syncIcons();
+
+    themeToggle?.addEventListener('click', () => {
+        document.documentElement.classList.add('theme-transitioning');
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        syncIcons();
+        window.setTimeout(() => document.documentElement.classList.remove('theme-transitioning'), 300);
+    });
+
     const yearEl = document.getElementById('year');
     if (yearEl) {
         yearEl.textContent = new Date().getFullYear();

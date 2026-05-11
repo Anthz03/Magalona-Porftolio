@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kyle Anthony Magalona — Systems Analyst & Developer</title>
 
+    <script>(function(){var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.classList.add('dark');}})();</script>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -15,12 +16,13 @@
 
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        primary: '#222222',
-                        secondary: '#7B7B7B',
-                        tertiary: '#F8F8F8',
+                        primary: 'rgb(var(--rgb-primary) / <alpha-value>)',
+                        secondary: 'rgb(var(--rgb-secondary) / <alpha-value>)',
+                        tertiary: 'rgb(var(--rgb-tertiary) / <alpha-value>)',
                     },
                     fontFamily: {
                         sans: ['"Aronik TRIAL"', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
@@ -125,8 +127,8 @@
 
                     <div class="lg:col-span-5 order-first lg:order-last">
                         <div class="group relative w-full aspect-[4/5] bg-tertiary overflow-hidden">
-                            <img src="img/profile.jpg" alt="Portrait of Kyle Anthony Magalona" class="absolute inset-0 w-full h-full object-contain mix-blend-multiply transition-all duration-700 ease-out group-hover:opacity-0 group-hover:scale-105" loading="eager" />
-                            <img src="img/profile-2.jpg" alt="Portrait of Kyle Anthony Magalona — alternate" class="absolute inset-0 w-full h-full object-contain mix-blend-multiply opacity-0 scale-105 transition-all duration-700 ease-out group-hover:opacity-100 group-hover:scale-100" loading="lazy" aria-hidden="true" />
+                            <img id="profileImg" src="img/profile.jpg" alt="Portrait of Kyle Anthony Magalona" class="absolute inset-0 w-full h-full object-contain mix-blend-multiply transition-all duration-700 ease-out group-hover:opacity-0 group-hover:scale-105" loading="eager" />
+                            <img id="profileImg2" src="img/profile-2.jpg" alt="Portrait of Kyle Anthony Magalona — alternate" class="absolute inset-0 w-full h-full object-contain mix-blend-multiply opacity-0 scale-105 transition-all duration-700 ease-out group-hover:opacity-100 group-hover:scale-100" loading="lazy" aria-hidden="true" />
                         </div>
                     </div>
                 </div>
@@ -395,7 +397,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12">
 
                 <article class="group relative">
-                    <div class="relative aspect-[4/3] bg-white border border-primary/5 overflow-hidden mb-5">
+                    <div class="relative aspect-[4/3] bg-white dark:bg-[#181818] border border-primary/5 overflow-hidden mb-5">
                         <img src="img/VerifAI.png" alt="VerifAI — AI Google Docs extension for research verification" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" />
                     </div>
                     <div class="flex items-start justify-between gap-6">
@@ -410,7 +412,7 @@
                 </article>
 
                 <article class="group relative">
-                    <div class="relative aspect-[4/3] bg-white border border-primary/5 overflow-hidden mb-5">
+                    <div class="relative aspect-[4/3] bg-white dark:bg-[#181818] border border-primary/5 overflow-hidden mb-5">
                         <img src="img/PATHINGIN.png" alt="Pathingin — UI/UX project preview" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" />
                     </div>
                     <div class="flex items-start justify-between gap-6">
@@ -425,7 +427,7 @@
                 </article>
 
                 <article class="group relative">
-                    <div class="relative aspect-[4/3] bg-white border border-primary/5 overflow-hidden mb-5">
+                    <div class="relative aspect-[4/3] bg-white dark:bg-[#181818] border border-primary/5 overflow-hidden mb-5">
                         <img src="img/UniCheck.png" alt="UniCheck PH — academic integrity platform preview" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" />
                     </div>
                     <div class="flex items-start justify-between gap-6">
@@ -440,7 +442,7 @@
                 </article>
 
                 <article class="group relative">
-                    <div class="relative aspect-[4/3] bg-white border border-primary/5 overflow-hidden mb-5">
+                    <div class="relative aspect-[4/3] bg-white dark:bg-[#181818] border border-primary/5 overflow-hidden mb-5">
                         <img src="img/ClickShift.png" alt="ClickShift — smart scheduling system preview" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105" loading="lazy" />
                     </div>
                     <div class="flex items-start justify-between gap-6">
@@ -657,6 +659,17 @@
             </div>
         </div>
     </div>
+
+    <button id="themeToggle" type="button" aria-label="Toggle colour scheme"
+        class="fixed bottom-6 right-6 z-50 w-11 h-11 inline-flex items-center justify-center rounded-full bg-tertiary border border-primary/10 shadow-lg text-secondary hover:text-primary hover:border-primary/20 transition-colors">
+        <svg id="iconMoon" viewBox="0 0 24 24" class="w-[1.05rem] h-[1.05rem]" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <svg id="iconSun" viewBox="0 0 24 24" class="w-[1.05rem] h-[1.05rem] hidden" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
 
     <script src="script.js"></script>
 </body>
