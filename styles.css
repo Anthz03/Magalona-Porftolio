@@ -184,6 +184,34 @@ body.modal-open {
     font-size: 0.875rem;
 }
 
+/* ── Timeline scroll zoom ──────────────────────────────── */
+.timeline-item {
+    transform-origin: center;
+    transition:
+        transform 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.65s ease;
+    will-change: transform, opacity;
+}
+
+.timeline-item.is-inactive {
+    opacity: 0.42;
+    transform: scale(0.97);
+}
+
+.timeline-item.is-active {
+    opacity: 1;
+    transform: scale(1.03);
+}
+
+.timeline-dot {
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    transform-origin: center;
+}
+
+.timeline-item.is-active .timeline-dot {
+    transform: scale(2);
+}
+
 @keyframes typewriter-blink {
     50% {
         opacity: 0;
@@ -271,6 +299,90 @@ html.dark {
         filter 0.28s ease !important;
 }
 
+/* ── Mori medallions (section punctuation) ─────────────── */
+.mori-break {
+    position: relative;
+    width: 100%;
+    pointer-events: none;
+    margin-top: -3.5rem;
+    margin-bottom: -1rem;
+    display: flex;
+    z-index: 2;
+}
+
+.mori-break.is-center  { justify-content: center; }
+.mori-break.is-right   { justify-content: flex-end;   padding-right: 12%; }
+.mori-break.is-left    { justify-content: flex-start; padding-left: 12%; }
+
+.mori-medallion {
+    position: relative;
+    width: 5.5rem;
+    height: 5.5rem;
+    border-radius: 9999px;
+    background: #ffffff;
+    border: 1px solid rgba(34, 34, 34, 0.08);
+    box-shadow:
+        0 4px 12px rgba(34, 34, 34, 0.06),
+        0 16px 36px rgba(34, 34, 34, 0.06);
+    overflow: hidden;
+    animation: mori-float 5.5s ease-in-out infinite;
+    will-change: transform;
+}
+
+.mori-break.is-right  .mori-medallion { animation-delay: -1.8s; }
+.mori-break.is-left   .mori-medallion { animation-delay: -3.4s; }
+
+.mori-medallion::before {
+    content: '';
+    position: absolute;
+    inset: -1.5rem;
+    background: radial-gradient(circle, rgba(34, 34, 34, 0.05), transparent 70%);
+    z-index: -1;
+    border-radius: 9999px;
+    pointer-events: none;
+}
+
+.dark .mori-medallion {
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.45),
+        0 18px 40px rgba(0, 0, 0, 0.5);
+}
+
+.dark .mori-medallion::before {
+    background: radial-gradient(circle, rgba(236, 236, 236, 0.07), transparent 70%);
+}
+
+.mori-image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 35%;
+    mix-blend-mode: multiply;
+}
+
+.dark .mori-image {
+    mix-blend-mode: multiply;
+}
+
+@media (min-width: 768px) {
+    .mori-medallion { width: 6.5rem; height: 6.5rem; }
+    .mori-break { margin-top: -4rem; }
+}
+
+@media (min-width: 1024px) {
+    .mori-medallion { width: 7.5rem; height: 7.5rem; }
+    .mori-break.is-right { padding-right: 15%; }
+    .mori-break.is-left  { padding-left: 15%; }
+}
+
+@keyframes mori-float {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
+}
+
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
@@ -289,6 +401,25 @@ html.dark {
     #projectModal,
     #projectModalPanel {
         transition: none;
+    }
+
+    .timeline-item {
+        transition: none;
+    }
+
+    .timeline-item.is-inactive,
+    .timeline-item.is-active {
+        transform: none;
+        opacity: 1;
+    }
+
+    .timeline-dot {
+        transition: none;
+        transform: none !important;
+    }
+
+    .mori-medallion {
+        animation: none;
     }
 
 }
