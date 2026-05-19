@@ -1,3 +1,7 @@
+*{
+    margin: 0%;
+    padding: 0%;
+}
 :root {
     --rgb-primary: 34 34 34;
     --rgb-secondary: 123 123 123;
@@ -352,13 +356,14 @@ html.dark {
     50%      { transform: translateY(calc(var(--mori-parallax) - 8px)); }
 }
 
+
 /* Large Mori-3 popping out from right side of Experience section */
 .mori-experience {
     display: none;
     position: absolute;
     top: 50%;
-    right: -2rem;
-    width: 18rem;
+    right: 1rem;
+    width: 22rem;
     height: auto;
     transform: translateY(-50%) rotate(-90deg);
     transform-origin: center;
@@ -375,15 +380,66 @@ html.dark {
 @media (min-width: 1024px) {
     .mori-experience {
         display: block;
-        width: 20rem;
-        right: -3rem;
+        width: 22rem;
+        right: 1rem;
     }
 }
 
 @media (min-width: 1280px) {
     .mori-experience {
-        width: 24rem;
-        right: -4rem;
+        width: 26rem;
+        right: 2rem;
+    }
+}
+
+/* Mori-2 standing at the bottom of Contact, extending into footer area */
+.mori-contact {
+    display: none;
+    position: absolute;
+    bottom: -5rem;
+    left: 28%;
+    width: 11rem;
+    height: auto;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    user-select: none;
+    z-index: 5;
+}
+
+.dark .mori-contact {
+    mix-blend-mode: multiply;
+}
+
+@media (min-width: 768px) {
+    .mori-contact {
+        display: block;
+        width: 15rem;
+        bottom: -5rem;
+        left: 28%;
+    }
+}
+
+@media (min-width: 1024px) {
+    .mori-contact {
+        width: 17rem;
+        bottom: -6rem;
+        left: 30%;
+    }
+}
+
+@media (min-width: 1280px) {
+    .mori-contact {
+        width: 19rem;
+        bottom: -7rem;
+        left: 32%;
+    }
+}
+
+/* Hide Mori-2 and Mori-3 below desktop width */
+@media (max-width: 1101px) {
+    .mori-experience,
+    .mori-contact {
+        display: none;
     }
 }
 

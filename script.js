@@ -6,6 +6,8 @@
     const iconSun = document.getElementById('iconSun');
     const profileImg = document.getElementById('profileImg');
     const profileImg2 = document.getElementById('profileImg2');
+    const moriExperience = document.getElementById('moriExperience');
+    const moriContact = document.getElementById('moriContact');
 
     const syncIcons = () => {
         const isDark = document.documentElement.classList.contains('dark');
@@ -13,6 +15,8 @@
         iconSun?.classList.toggle('hidden', !isDark);
         if (profileImg)  profileImg.src  = isDark ? 'img/profile-dark.png'  : 'img/profile.jpg';
         if (profileImg2) profileImg2.src = isDark ? 'img/profile2-dark.png' : 'img/profile-2.jpg';
+        if (moriExperience) moriExperience.src = isDark ? 'img/Mori/Mori-3-dark.jpg' : 'img/Mori/Mori-3.jpg';
+        if (moriContact)    moriContact.src    = isDark ? 'img/Mori/Mori-2-dark.jpg' : 'img/Mori/Mori-2.jpg';
     };
     syncIcons();
 
