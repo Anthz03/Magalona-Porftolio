@@ -88,7 +88,7 @@ Each placement uses the same component pattern: a centered (or slightly offset) 
 ## Acceptance Criteria
 
 1. Three Mori images appear, one each between the three specified section pairs.
-2. Each sits visually on the section divider line, not inside section content.
+2. Each sits visually on the section divider line **or** inside the adjacent section's content area — whichever reads better in context. Either placement is acceptable as long as the medallion feels intentionally positioned, not floating randomly.
 3. Each renders cleanly in both light and dark mode without ugly white edges.
 4. Each has a gentle floating animation that respects reduced-motion preferences.
 5. No portfolio color changes outside the Mori images themselves.
