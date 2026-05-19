@@ -325,6 +325,7 @@ html.dark {
         0 4px 12px rgba(34, 34, 34, 0.06),
         0 16px 36px rgba(34, 34, 34, 0.06);
     overflow: hidden;
+    --mori-parallax: 0px;
     animation: mori-float 5.5s ease-in-out infinite;
     will-change: transform;
 }
@@ -379,8 +380,8 @@ html.dark {
 }
 
 @keyframes mori-float {
-    0%, 100% { transform: translateY(0); }
-    50%      { transform: translateY(-8px); }
+    0%, 100% { transform: translateY(var(--mori-parallax)); }
+    50%      { transform: translateY(calc(var(--mori-parallax) - 8px)); }
 }
 
 @media (prefers-reduced-motion: reduce) {

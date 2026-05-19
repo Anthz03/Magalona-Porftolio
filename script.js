@@ -328,6 +328,66 @@
         journeyObserver.observe(journeySection);
     }
 
+    // Timeline scroll zoom
+    const timelineOl = document.querySelector('#experience ol');
+    const experienceSection = document.getElementById('experience');
+
+    if (timelineOl && experienceSection && !reduceMotion) {
+        const timelineItems = Array.from(timelineOl.querySelectorAll('li'));
+
+        timelineItems.forEach(item => {
+            item.classList.add('timeline-item');
+            const dot = item.querySelector('span');
+            if (dot) dot.classList.add('timeline-dot');
+        });
+
+        let tlRafId = null;
+
+        const updateTimelineActive = () => {
+            const secRect = experienceSection.getBoundingClientRect();
+            const sectionInView = secRect.top < window.innerHeight && secRect.bottom > 0;
+
+            if (!sectionInView) {
+                timelineItems.forEach(item => item.classList.remove('is-active', 'is-inactive'));
+                return;
+            }
+
+            const focusY = window.innerHeight * 0.42;
+            let activeItem = null;
+            let minDist = Infinity;
+
+            timelineItems.forEach(item => {
+                const rect = item.getBoundingClientRect();
+                const itemMid = rect.top + rect.height * 0.3;
+                const dist = Math.abs(itemMid - focusY);
+                if (dist < minDist) {
+                    minDist = dist;
+                    activeItem = item;
+                }
+            });
+
+            timelineItems.forEach(item => {
+                if (item === activeItem) {
+                    item.classList.add('is-active');
+                    item.classList.remove('is-inactive');
+                } else {
+                    item.classList.remove('is-active');
+                    item.classList.add('is-inactive');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', () => {
+            if (tlRafId) return;
+            tlRafId = requestAnimationFrame(() => {
+                updateTimelineActive();
+                tlRafId = null;
+            });
+        }, { passive: true });
+
+        updateTimelineActive();
+    }
+
     const form = document.getElementById('contactForm');
     const status = document.getElementById('formStatus');
 
@@ -357,5 +417,55 @@
             status.style.color = '#7B7B7B';
             form.reset();
         });
+    }
+
+    const moriBreaks = document.querySelectorAll('.mori-break');
+
+    if (moriBreaks.length && !reduceMotion && 'IntersectionObserver' in window) {
+        const isMobile = window.matchMedia('(max-width: 767px)').matches;
+
+        if (!isMobile) {
+            const moriState = new Map();
+            let moriRafId = null;
+
+            const updateMori = () => {
+                moriState.forEach((entry, el) => {
+                    const rect = el.getBoundingClientRect();
+                    const viewportH = window.innerHeight || 1;
+                    const progress = 1 - (rect.top + rect.height / 2) / viewportH;
+                    const clamped = Math.max(0, Math.min(1, progress));
+                    const offset = (clamped - 0.5) * 20;
+                    const medallion = el.querySelector('.mori-medallion');
+                    if (medallion) {
+                        medallion.style.setProperty('--mori-parallax', `${offset.toFixed(2)}px`);
+                    }
+                });
+                moriRafId = null;
+            };
+
+            const moriObserver = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            moriState.set(entry.target, entry);
+                        } else {
+                            moriState.delete(entry.target);
+                            const medallion = entry.target.querySelector('.mori-medallion');
+                            if (medallion) {
+                                medallion.style.removeProperty('--mori-parallax');
+                            }
+                        }
+                    });
+                },
+                { rootMargin: '20% 0px 20% 0px' }
+            );
+
+            moriBreaks.forEach((el) => moriObserver.observe(el));
+
+            window.addEventListener('scroll', () => {
+                if (moriRafId) return;
+                moriRafId = requestAnimationFrame(updateMori);
+            }, { passive: true });
+        }
     }
 })();
