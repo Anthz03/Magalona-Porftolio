@@ -357,8 +357,8 @@ html.dark {
     display: none;
     position: absolute;
     top: 50%;
-    right: -6rem;
-    width: 22rem;
+    right: -2rem;
+    width: 18rem;
     height: auto;
     transform: translateY(-50%) rotate(-90deg);
     transform-origin: center;
@@ -375,15 +375,15 @@ html.dark {
 @media (min-width: 1024px) {
     .mori-experience {
         display: block;
-        width: 28rem;
-        right: -8rem;
+        width: 20rem;
+        right: -3rem;
     }
 }
 
 @media (min-width: 1280px) {
     .mori-experience {
-        width: 32rem;
-        right: -10rem;
+        width: 24rem;
+        right: -4rem;
     }
 }
 
