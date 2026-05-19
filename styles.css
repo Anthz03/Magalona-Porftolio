@@ -374,7 +374,7 @@ html.dark {
 }
 
 .dark .mori-experience {
-    mix-blend-mode: multiply;
+    mix-blend-mode: normal;
 }
 
 @media (min-width: 1024px) {
@@ -407,7 +407,7 @@ html.dark {
 }
 
 .dark .mori-contact {
-    mix-blend-mode: multiply;
+    mix-blend-mode: normal;
 }
 
 @media (min-width: 768px) {
