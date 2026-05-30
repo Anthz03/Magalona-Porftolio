@@ -386,10 +386,13 @@
                 }
             );
         });
+
+        // Late-loading images (Journey photos, project art, Mori) change layout
+        // and can mis-place triggers; refresh once everything has loaded.
+        window.addEventListener('load', () => ScrollTrigger.refresh());
     }
 
-    // Stub functions — filled in by later tasks. Defined as no-ops so the
-    // bootstrap runs cleanly before each effect is implemented.
+    // Scroll-effect implementations, invoked from the matchMedia callback above.
     function initSectionReveals() {
         const els = document.querySelectorAll('main section, footer');
 
