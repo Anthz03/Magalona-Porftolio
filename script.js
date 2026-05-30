@@ -411,7 +411,44 @@
             once: true,
         });
     }
-    function initHero() {}
+    function initHero(isDesktop) {
+        if (!isDesktop) return;
+        const hero = document.querySelector('main > section.relative');
+        if (!hero) return;
+
+        const portrait = document.getElementById('profileImg');
+        const portraitWrap = portrait ? portrait.closest('.group') : null;
+        const sideRail = hero.querySelector('div.hidden.md\\:flex');
+        const stats = hero.querySelector('.flex.flex-wrap.gap-12');
+
+        // Portrait drifts up slightly slower than the page.
+        if (portraitWrap) {
+            gsap.to(portraitWrap, {
+                yPercent: -10,
+                ease: 'none',
+                scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true },
+            });
+        }
+
+        // Side rail ("Information Systems / 2026") drifts gently down.
+        if (sideRail) {
+            gsap.to(sideRail, {
+                yPercent: 12,
+                ease: 'none',
+                scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true },
+            });
+        }
+
+        // Stats row fades/translates out as the hero leaves the viewport.
+        if (stats) {
+            gsap.to(stats, {
+                autoAlpha: 0,
+                y: -20,
+                ease: 'none',
+                scrollTrigger: { trigger: hero, start: 'center top', end: 'bottom top', scrub: true },
+            });
+        }
+    }
     function initAboutSkills() {}
     function initProjects() {}
     function initMori(isDesktop) {
