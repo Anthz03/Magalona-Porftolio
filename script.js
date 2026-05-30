@@ -452,7 +452,50 @@
             });
         }
     }
-    function initAboutSkills() {}
+    function initAboutSkills() {
+        // About: heading rises in, then the body paragraphs stagger in.
+        const about = document.getElementById('about');
+        if (about) {
+            const heading = about.querySelector('h2');
+            const paras = about.querySelectorAll('p.leading-relaxed');
+            if (heading) {
+                gsap.from(heading, {
+                    autoAlpha: 0,
+                    y: 28,
+                    duration: 0.7,
+                    ease: 'power3.out',
+                    scrollTrigger: { trigger: about, start: 'top 78%', once: true },
+                });
+            }
+            if (paras.length) {
+                gsap.from(paras, {
+                    autoAlpha: 0,
+                    y: 18,
+                    duration: 0.6,
+                    ease: 'power2.out',
+                    stagger: 0.1,
+                    scrollTrigger: { trigger: about, start: 'top 72%', once: true },
+                });
+            }
+        }
+
+        // Skills: the bordered grid cells assemble in with a subtle scale + rise.
+        const skills = document.getElementById('skills');
+        if (skills) {
+            const cells = skills.querySelectorAll('.grid > .bg-tertiary');
+            if (cells.length) {
+                gsap.from(cells, {
+                    autoAlpha: 0,
+                    scale: 0.98,
+                    y: 16,
+                    duration: 0.5,
+                    ease: 'power2.out',
+                    stagger: { each: 0.06, from: 'start' },
+                    scrollTrigger: { trigger: skills, start: 'top 75%', once: true },
+                });
+            }
+        }
+    }
 
     function initJourney(isDesktop) {
         const section = document.getElementById('journey');
