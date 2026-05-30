@@ -237,6 +237,15 @@ body.modal-open {
     transform-origin: top;
 }
 
+/* Project card images: base scale gives headroom for initProjects' ±5%
+   yPercent parallax; transition:none stops the Tailwind transition-transform
+   from smearing GSAP's per-frame scrub. GSAP owns the transform on desktop,
+   so group-hover:scale-105 yields to the scroll parallax there. */
+#projects article .relative.overflow-hidden img {
+    transform: scale(1.12);
+    transition: none;
+}
+
 @keyframes typewriter-blink {
     50% {
         opacity: 0;

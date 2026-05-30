@@ -556,7 +556,60 @@
             });
         }
     }
-    function initProjects() {}
+    function initProjects(isDesktop) {
+        const section = document.getElementById('projects');
+        if (!section) return;
+
+        // Heading + intro reveal — scoped to the header grid so it doesn't grab
+        // the per-card meta/description/stack <p>s in the card grid.
+        const header = section.querySelector(':scope > div');
+        const intro = header ? header.querySelectorAll('h2, p') : [];
+        if (intro.length) {
+            gsap.from(intro, {
+                autoAlpha: 0,
+                y: 20,
+                duration: 0.6,
+                ease: 'power2.out',
+                stagger: 0.06,
+                scrollTrigger: { trigger: section, start: 'top 80%', once: true },
+            });
+        }
+
+        // Cards rise + fade with stagger.
+        const cards = section.querySelectorAll('article.group');
+        if (cards.length) {
+            gsap.from(cards, {
+                autoAlpha: 0,
+                y: 40,
+                duration: 0.7,
+                ease: 'power3.out',
+                stagger: 0.12,
+                scrollTrigger: { trigger: section, start: 'top 72%', once: true },
+            });
+        }
+
+        // In-frame image parallax (desktop only).
+        if (isDesktop) {
+            cards.forEach((card) => {
+                const img = card.querySelector('img');
+                if (!img) return;
+                gsap.fromTo(
+                    img,
+                    { yPercent: -5 },
+                    {
+                        yPercent: 5,
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: card,
+                            start: 'top bottom',
+                            end: 'bottom top',
+                            scrub: true,
+                        },
+                    }
+                );
+            });
+        }
+    }
     function initMori(isDesktop) {
         if (!isDesktop) return; // heavy parallax is desktop-only
         const moris = [
