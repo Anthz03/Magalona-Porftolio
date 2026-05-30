@@ -50,6 +50,8 @@
         });
     }
 
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     const sectionsToReveal = document.querySelectorAll('main section, footer');
 
     // When GSAP scroll motion is active, initSectionReveals() handles these.
@@ -64,7 +66,6 @@
     }
 
     const typewriterEl = document.getElementById('typewriter');
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (typewriterEl && !reduceMotion) {
         const greetings = ['Hello', '안녕', '你好', 'こんにちは', 'Kumusta'];
@@ -496,7 +497,30 @@
 
     // Stub functions — filled in by later tasks. Defined as no-ops so the
     // bootstrap runs cleanly before each effect is implemented.
-    function initSectionReveals() {}
+    function initSectionReveals() {
+        const els = document.querySelectorAll('main section, footer');
+
+        // Set the pre-animation state GSAP tweens FROM *before* the batch is
+        // created, so there's no flash of fully-visible content on first paint.
+        // GSAP owns this inline state — we deliberately do NOT add the `.reveal`
+        // CSS class here (its transition would fight GSAP's writes); `.reveal`
+        // is only for the non-GSAP fallback path above.
+        gsap.set(els, { autoAlpha: 0, y: 24 });
+
+        ScrollTrigger.batch(els, {
+            start: 'top 88%',
+            onEnter: (batch) =>
+                gsap.to(batch, {
+                    autoAlpha: 1,
+                    y: 0,
+                    duration: 0.7,
+                    ease: 'power2.out',
+                    stagger: 0.08,
+                    overwrite: true,
+                }),
+            once: true,
+        });
+    }
     function initHero() {}
     function initAboutSkills() {}
     function initProjects() {}
