@@ -325,66 +325,6 @@
         journeyObserver.observe(journeySection);
     }
 
-    // Timeline scroll zoom
-    const timelineOl = document.querySelector('#experience ol');
-    const experienceSection = document.getElementById('experience');
-
-    if (timelineOl && experienceSection && !reduceMotion) {
-        const timelineItems = Array.from(timelineOl.querySelectorAll('li'));
-
-        timelineItems.forEach(item => {
-            item.classList.add('timeline-item');
-            const dot = item.querySelector('span');
-            if (dot) dot.classList.add('timeline-dot');
-        });
-
-        let tlRafId = null;
-
-        const updateTimelineActive = () => {
-            const secRect = experienceSection.getBoundingClientRect();
-            const sectionInView = secRect.top < window.innerHeight && secRect.bottom > 0;
-
-            if (!sectionInView) {
-                timelineItems.forEach(item => item.classList.remove('is-active', 'is-inactive'));
-                return;
-            }
-
-            const focusY = window.innerHeight * 0.42;
-            let activeItem = null;
-            let minDist = Infinity;
-
-            timelineItems.forEach(item => {
-                const rect = item.getBoundingClientRect();
-                const itemMid = rect.top + rect.height * 0.3;
-                const dist = Math.abs(itemMid - focusY);
-                if (dist < minDist) {
-                    minDist = dist;
-                    activeItem = item;
-                }
-            });
-
-            timelineItems.forEach(item => {
-                if (item === activeItem) {
-                    item.classList.add('is-active');
-                    item.classList.remove('is-inactive');
-                } else {
-                    item.classList.remove('is-active');
-                    item.classList.add('is-inactive');
-                }
-            });
-        };
-
-        window.addEventListener('scroll', () => {
-            if (tlRafId) return;
-            tlRafId = requestAnimationFrame(() => {
-                updateTimelineActive();
-                tlRafId = null;
-            });
-        }, { passive: true });
-
-        updateTimelineActive();
-    }
-
     const form = document.getElementById('contactForm');
     const status = document.getElementById('formStatus');
 
@@ -500,5 +440,45 @@
             );
         });
     }
-    function initTimeline() {}
+    function initTimeline() {
+        const ol = document.querySelector('#experience ol');
+        if (!ol) return;
+        const items = Array.from(ol.querySelectorAll('li'));
+        if (!items.length) return;
+
+        items.forEach((item) => {
+            item.classList.add('timeline-item');
+            const dot = item.querySelector('span');
+            if (dot) dot.classList.add('timeline-dot');
+        });
+
+        // Draw the left border line in as the list scrolls through.
+        gsap.fromTo(
+            ol,
+            { '--tl-scale': 0 },
+            {
+                '--tl-scale': 1,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: ol,
+                    start: 'top 80%',
+                    end: 'bottom 60%',
+                    scrub: true,
+                },
+            }
+        );
+
+        // Highlight the item nearest the focus line; dim the rest.
+        items.forEach((item) => {
+            ScrollTrigger.create({
+                trigger: item,
+                start: 'top 55%',
+                end: 'bottom 45%',
+                onToggle: (self) => {
+                    item.classList.toggle('is-active', self.isActive);
+                    item.classList.toggle('is-inactive', !self.isActive);
+                },
+            });
+        });
+    }
 })();

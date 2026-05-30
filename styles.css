@@ -216,6 +216,25 @@ body.modal-open {
     transform: scale(2);
 }
 
+/* Animated left line — drawn in by initTimeline via --tl-scale.
+   Replaces the Tailwind border-l on the <ol>. Defaults to fully drawn
+   (scaleY 1) so the reduced-motion / no-JS fallback shows a static line. */
+#experience ol {
+    position: relative;
+}
+
+#experience ol::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: rgb(var(--rgb-primary) / 0.1);
+    transform: scaleY(var(--tl-scale, 1));
+    transform-origin: top;
+}
+
 @keyframes typewriter-blink {
     50% {
         opacity: 0;
