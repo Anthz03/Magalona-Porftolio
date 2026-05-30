@@ -436,7 +436,7 @@
         // GSAP owns this inline state — we deliberately do NOT add the `.reveal`
         // CSS class here (its transition would fight GSAP's writes); `.reveal`
         // is only for the non-GSAP fallback path above.
-        gsap.set(els, { autoAlpha: 0, y: 24 });
+        gsap.set(els, { autoAlpha: 0, y: 40 });
 
         ScrollTrigger.batch(els, {
             start: 'top 88%',
@@ -465,18 +465,18 @@
         // Portrait drifts up slightly slower than the page.
         if (portraitWrap) {
             gsap.to(portraitWrap, {
-                yPercent: -10,
+                yPercent: -22,
                 ease: 'none',
-                scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true },
+                scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 1 },
             });
         }
 
         // Side rail ("Information Systems / 2026") drifts gently down.
         if (sideRail) {
             gsap.to(sideRail, {
-                yPercent: 12,
+                yPercent: 26,
                 ease: 'none',
-                scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true },
+                scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: 1 },
             });
         }
 
@@ -486,7 +486,7 @@
                 autoAlpha: 0,
                 y: -20,
                 ease: 'none',
-                scrollTrigger: { trigger: hero, start: 'center top', end: 'bottom top', scrub: true },
+                scrollTrigger: { trigger: hero, start: 'center top', end: 'bottom top', scrub: 1 },
             });
         }
     }
@@ -633,15 +633,15 @@
                 if (!img) return;
                 gsap.fromTo(
                     img,
-                    { yPercent: -5 },
+                    { yPercent: -9 },
                     {
-                        yPercent: 5,
+                        yPercent: 9,
                         ease: 'none',
                         scrollTrigger: {
                             trigger: card,
                             start: 'top bottom',
                             end: 'bottom top',
-                            scrub: true,
+                            scrub: 1,
                         },
                     }
                 );
@@ -659,15 +659,15 @@
             if (!el || !section) return;
             gsap.fromTo(
                 el,
-                { yPercent: -8 },
+                { yPercent: -18 },
                 {
-                    yPercent: 8,
+                    yPercent: 18,
                     ease: 'none',
                     scrollTrigger: {
                         trigger: section,
                         start: 'top bottom',
                         end: 'bottom top',
-                        scrub: true,
+                        scrub: 1,
                         invalidateOnRefresh: true,
                     },
                 }
