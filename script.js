@@ -650,8 +650,9 @@
     }
     function initMori(isDesktop) {
         if (!isDesktop) return; // heavy parallax is desktop-only
+        // #moriExperience is intentionally excluded: the Experience section is
+        // pinned (initTimeline), so its Mori stays fixed rather than drifting.
         const moris = [
-            { el: document.getElementById('moriExperience'), section: document.getElementById('experience') },
             { el: document.getElementById('moriContact'), section: document.getElementById('contact') },
         ];
 
@@ -674,45 +675,45 @@
             );
         });
     }
-    function initTimeline() {
+    function initTimeline(isDesktop) {
         const ol = document.querySelector('#experience ol');
         if (!ol) return;
         const items = Array.from(ol.querySelectorAll('li'));
         if (!items.length) return;
 
-        items.forEach((item) => {
-            item.classList.add('timeline-item');
-            const dot = item.querySelector('span');
-            if (dot) dot.classList.add('timeline-dot');
+        // Mobile / reduced-motion / no-GSAP: leave entries in normal vertical
+        // flow, fully visible (no pin, no stepper).
+        if (!isDesktop) return;
+
+        const section = document.getElementById('experience');
+        if (!section) return;
+
+        // Pin the section and reveal entries ONE AT A TIME: the heading and the
+        // Mori stay fixed (they live in the pinned section) while each entry
+        // crossfades in over a long scroll. `.is-stepper` switches the <ol> to
+        // the absolute-stacked layout in CSS; without it the list is the
+        // normal fallback.
+        ol.classList.add('is-stepper');
+        gsap.set(items, { autoAlpha: 0 });
+        gsap.set(items[0], { autoAlpha: 1 });
+
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: section,
+                start: 'top top',
+                end: () => '+=' + items.length * window.innerHeight * 0.8,
+                pin: true,
+                scrub: 1,
+                anticipatePin: 1,
+                invalidateOnRefresh: true,
+            },
         });
 
-        // Draw the left border line in as the list scrolls through.
-        gsap.fromTo(
-            ol,
-            { '--tl-scale': 0 },
-            {
-                '--tl-scale': 1,
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: ol,
-                    start: 'top 80%',
-                    end: 'bottom 60%',
-                    scrub: true,
-                },
-            }
-        );
-
-        // Highlight the item nearest the focus line; dim the rest.
-        items.forEach((item) => {
-            ScrollTrigger.create({
-                trigger: item,
-                start: 'top 55%',
-                end: 'bottom 45%',
-                onToggle: (self) => {
-                    item.classList.toggle('is-active', self.isActive);
-                    item.classList.toggle('is-inactive', !self.isActive);
-                },
-            });
-        });
+        // Crossfade between consecutive entries, holding (dwell) on each.
+        for (let i = 1; i < items.length; i += 1) {
+            tl.to(items[i - 1], { autoAlpha: 0, ease: 'none', duration: 0.4 })
+                .to(items[i], { autoAlpha: 1, ease: 'none', duration: 0.4 }, '>-0.15')
+                .to({}, { duration: 0.5 });
+        }
     }
 })();

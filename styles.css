@@ -237,6 +237,26 @@ body.modal-open {
     transform-origin: top;
 }
 
+/* Experience pinned crossfade stepper (desktop): entries stack in one spot and
+   only the active one is visible; initTimeline adds .is-stepper and drives the
+   opacity. No class (mobile / reduced-motion / no-GSAP) = normal vertical list. */
+@media (min-width: 768px) {
+    #experience ol.is-stepper {
+        position: relative;
+        min-height: 20rem;
+    }
+
+    #experience ol.is-stepper > li {
+        position: absolute;
+        inset: 0;
+        padding-bottom: 0;
+    }
+
+    #experience ol.is-stepper::before {
+        display: none;
+    }
+}
+
 /* Project card images: base scale gives headroom for initProjects' ±5%
    yPercent parallax; transition:none stops the Tailwind transition-transform
    from smearing GSAP's per-frame scrub. GSAP owns the transform on desktop,
