@@ -472,4 +472,42 @@
             }, { passive: true });
         }
     }
+
+    // ---- GSAP scroll system ----
+    const hasGsap = typeof window.gsap !== 'undefined' && typeof window.ScrollTrigger !== 'undefined';
+
+    if (hasGsap && !reduceMotion) {
+        gsap.registerPlugin(ScrollTrigger);
+        ScrollTrigger.config({ ignoreMobileResize: true });
+
+        gsap.context(() => {
+            const mm = gsap.matchMedia();
+
+            mm.add(
+                {
+                    isDesktop: '(min-width: 768px)',
+                    isMobile: '(max-width: 767px)',
+                },
+                (ctx) => {
+                    const { isDesktop } = ctx.conditions;
+                    initSectionReveals();
+                    initHero(isDesktop);
+                    initAboutSkills(isDesktop);
+                    initProjects(isDesktop);
+                    initMori(isDesktop);
+                    initTimeline(isDesktop);
+                    // initJourney is wired in a later task (depends on the marquee animation handle)
+                }
+            );
+        });
+    }
+
+    // Stub functions — filled in by later tasks. Defined as no-ops so the
+    // bootstrap runs cleanly before each effect is implemented.
+    function initSectionReveals() {}
+    function initHero() {}
+    function initAboutSkills() {}
+    function initProjects() {}
+    function initMori() {}
+    function initTimeline() {}
 })();
