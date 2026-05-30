@@ -378,6 +378,23 @@
             gsap.ticker.lagSmoothing(0);
         }
 
+        // Route in-page anchor links through Lenis so they land under the
+        // fixed header. The header is the fixed top nav; read its height live.
+        if (lenis) {
+            const header = document.querySelector('header');
+            document.querySelectorAll('a[href^="#"]').forEach((link) => {
+                link.addEventListener('click', (event) => {
+                    const id = link.getAttribute('href');
+                    if (!id || id === '#') return;
+                    const target = document.querySelector(id);
+                    if (!target) return;
+                    event.preventDefault();
+                    const offset = header ? -header.offsetHeight : 0;
+                    lenis.scrollTo(target, { offset });
+                });
+            });
+        }
+
         gsap.context(() => {
             const mm = gsap.matchMedia();
 
