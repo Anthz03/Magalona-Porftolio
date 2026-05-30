@@ -287,6 +287,9 @@
         }
     });
 
+    // Lifted to IIFE scope so initJourney() can read the marquee handle for
+    // scroll-velocity reactivity. Assigned lazily when the marquee first inits.
+    let journeyMarqueeAnim = null;
     const journeySlider = document.querySelector('.journey-slider');
     const journeyTrack = document.querySelector('.journey-track');
     const journeySection = document.getElementById('journey');
@@ -301,7 +304,7 @@
                 slides[8].getBoundingClientRect().left -
                 slides[0].getBoundingClientRect().left;
 
-            const anim = journeyTrack.animate(
+            journeyMarqueeAnim = journeyTrack.animate(
                 [
                     { transform: 'translateX(0px)' },
                     { transform: `translateX(-${halfOffset}px)` }
@@ -309,8 +312,8 @@
                 { duration: 52000, iterations: Infinity, easing: 'linear' }
             );
 
-            journeySlider.addEventListener('mouseenter', () => anim.pause());
-            journeySlider.addEventListener('mouseleave', () => anim.play());
+            journeySlider.addEventListener('mouseenter', () => journeyMarqueeAnim.pause());
+            journeySlider.addEventListener('mouseleave', () => journeyMarqueeAnim.play());
         };
 
         const journeyObserver = new IntersectionObserver(
@@ -379,7 +382,7 @@
                     initProjects(isDesktop);
                     initMori(isDesktop);
                     initTimeline(isDesktop);
-                    // initJourney is wired in a later task (depends on the marquee animation handle)
+                    initJourney(isDesktop);
                 }
             );
         });
@@ -450,6 +453,66 @@
         }
     }
     function initAboutSkills() {}
+
+    function initJourney(isDesktop) {
+        const section = document.getElementById('journey');
+        if (!section) return;
+
+        // 2a. Scroll-velocity reactivity: speed the marquee with scroll velocity.
+        // The marquee handle is assigned lazily (on scroll-into-view), so the
+        // trigger is created unconditionally and guards inside onUpdate.
+        let resetTimer = null;
+        ScrollTrigger.create({
+            trigger: section,
+            start: 'top bottom',
+            end: 'bottom top',
+            onUpdate: (self) => {
+                if (!journeyMarqueeAnim) return;
+                const v = self.getVelocity();              // px/sec, signed
+                const boost = 1 + Math.min(Math.abs(v) / 1500, 3); // 1..4
+                journeyMarqueeAnim.playbackRate = boost;
+                clearTimeout(resetTimer);
+                resetTimer = setTimeout(() => {
+                    if (journeyMarqueeAnim) journeyMarqueeAnim.playbackRate = 1;
+                }, 180);
+            },
+        });
+
+        // 2b. Intra-frame parallax on each slide image (desktop only).
+        if (isDesktop) {
+            section.querySelectorAll('.journey-slide img').forEach((img) => {
+                gsap.fromTo(
+                    img,
+                    { yPercent: -5 },
+                    {
+                        yPercent: 5,
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: section,
+                            start: 'top bottom',
+                            end: 'bottom top',
+                            scrub: true,
+                        },
+                    }
+                );
+            });
+        }
+
+        // 2c. Heading + intro reveal — scoped to the header div so it doesn't
+        // grab the slide caption <p>s inside the marquee.
+        const header = section.querySelector(':scope > div');
+        const heads = header ? header.querySelectorAll('h2, p') : [];
+        if (heads.length) {
+            gsap.from(heads, {
+                autoAlpha: 0,
+                y: 20,
+                duration: 0.6,
+                ease: 'power2.out',
+                stagger: 0.06,
+                scrollTrigger: { trigger: section, start: 'top 80%', once: true },
+            });
+        }
+    }
     function initProjects() {}
     function initMori(isDesktop) {
         if (!isDesktop) return; // heavy parallax is desktop-only

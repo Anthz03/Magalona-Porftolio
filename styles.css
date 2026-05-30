@@ -158,10 +158,12 @@ body.modal-open {
     object-fit: cover;
     display: block;
     filter: grayscale(20%) brightness(0.95) contrast(1.02);
-    transition:
-        filter 0.65s ease,
-        transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: filter 0.65s ease;
     transform-origin: center;
+    /* Slightly oversized so initJourney's ±5% yPercent parallax never
+       reveals an edge gap. GSAP owns the transform on desktop, so the
+       hover scale below no longer applies there (parallax replaces it). */
+    transform: scale(1.12);
 }
 
 .journey-slide:hover img {
