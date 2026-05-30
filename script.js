@@ -51,24 +51,16 @@
     }
 
     const sectionsToReveal = document.querySelectorAll('main section, footer');
-    sectionsToReveal.forEach((el) => el.classList.add('reveal'));
 
-    if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            },
-            { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
-        );
+    // When GSAP scroll motion is active, initSectionReveals() handles these.
+    // Otherwise (reduced motion or GSAP unavailable) reveal immediately.
+    const gsapActive =
+        typeof window.gsap !== 'undefined' &&
+        typeof window.ScrollTrigger !== 'undefined' &&
+        !reduceMotion;
 
-        sectionsToReveal.forEach((el) => observer.observe(el));
-    } else {
-        sectionsToReveal.forEach((el) => el.classList.add('is-visible'));
+    if (!gsapActive) {
+        sectionsToReveal.forEach((el) => el.classList.add('reveal', 'is-visible'));
     }
 
     const typewriterEl = document.getElementById('typewriter');
