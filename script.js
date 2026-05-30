@@ -416,56 +416,6 @@
         });
     }
 
-    const moriBreaks = document.querySelectorAll('.mori-break');
-
-    if (moriBreaks.length && !reduceMotion && 'IntersectionObserver' in window) {
-        const isMobile = window.matchMedia('(max-width: 767px)').matches;
-
-        if (!isMobile) {
-            const moriState = new Map();
-            let moriRafId = null;
-
-            const updateMori = () => {
-                moriState.forEach((entry, el) => {
-                    const rect = el.getBoundingClientRect();
-                    const viewportH = window.innerHeight || 1;
-                    const progress = 1 - (rect.top + rect.height / 2) / viewportH;
-                    const clamped = Math.max(0, Math.min(1, progress));
-                    const offset = (clamped - 0.5) * 20;
-                    const medallion = el.querySelector('.mori-medallion');
-                    if (medallion) {
-                        medallion.style.setProperty('--mori-parallax', `${offset.toFixed(2)}px`);
-                    }
-                });
-                moriRafId = null;
-            };
-
-            const moriObserver = new IntersectionObserver(
-                (entries) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            moriState.set(entry.target, entry);
-                        } else {
-                            moriState.delete(entry.target);
-                            const medallion = entry.target.querySelector('.mori-medallion');
-                            if (medallion) {
-                                medallion.style.removeProperty('--mori-parallax');
-                            }
-                        }
-                    });
-                },
-                { rootMargin: '20% 0px 20% 0px' }
-            );
-
-            moriBreaks.forEach((el) => moriObserver.observe(el));
-
-            window.addEventListener('scroll', () => {
-                if (moriRafId) return;
-                moriRafId = requestAnimationFrame(updateMori);
-            }, { passive: true });
-        }
-    }
-
     // ---- GSAP scroll system ----
     const hasGsap = typeof window.gsap !== 'undefined' && typeof window.ScrollTrigger !== 'undefined';
 
@@ -524,6 +474,31 @@
     function initHero() {}
     function initAboutSkills() {}
     function initProjects() {}
-    function initMori() {}
+    function initMori(isDesktop) {
+        if (!isDesktop) return; // heavy parallax is desktop-only
+        const moris = [
+            { el: document.getElementById('moriExperience'), section: document.getElementById('experience') },
+            { el: document.getElementById('moriContact'), section: document.getElementById('contact') },
+        ];
+
+        moris.forEach(({ el, section }) => {
+            if (!el || !section) return;
+            gsap.fromTo(
+                el,
+                { yPercent: -8 },
+                {
+                    yPercent: 8,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: true,
+                        invalidateOnRefresh: true,
+                    },
+                }
+            );
+        });
+    }
     function initTimeline() {}
 })();
