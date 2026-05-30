@@ -242,7 +242,7 @@ body.modal-open {
    from smearing GSAP's per-frame scrub. GSAP owns the transform on desktop,
    so group-hover:scale-105 yields to the scroll parallax there. */
 #projects article .relative.overflow-hidden img {
-    transform: scale(1.20);
+    transform: scale(1.12);
     transition: none;
 }
 

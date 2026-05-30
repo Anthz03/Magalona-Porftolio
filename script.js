@@ -633,15 +633,15 @@
                 if (!img) return;
                 gsap.fromTo(
                     img,
-                    { yPercent: -9 },
+                    { yPercent: -5 },
                     {
-                        yPercent: 9,
+                        yPercent: 5,
                         ease: 'none',
                         scrollTrigger: {
                             trigger: card,
                             start: 'top bottom',
                             end: 'bottom top',
-                            scrub: 1,
+                            scrub: true,
                         },
                     }
                 );
