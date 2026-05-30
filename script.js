@@ -675,7 +675,8 @@
             );
         });
     }
-    function initTimeline(isDesktop) {
+    function initTimeline() {
+        const section = document.getElementById('experience');
         const ol = document.querySelector('#experience ol');
         if (!ol) return;
         const items = Array.from(ol.querySelectorAll('li'));
@@ -686,41 +687,53 @@
             if (dot) dot.classList.add('timeline-dot');
         });
 
-        // Mobile / reduced-motion / no-GSAP: plain vertical list, static line.
-        if (!isDesktop) return;
+        // The heading fades/rises in with the section, then scrolls away
+        // normally (not pinned, not sticky).
+        if (section) {
+            const head = section.querySelectorAll(':scope > div p, :scope > div h2');
+            if (head.length) {
+                gsap.from(head, {
+                    autoAlpha: 0,
+                    y: 30,
+                    duration: 0.6,
+                    ease: 'power2.out',
+                    stagger: 0.08,
+                    scrollTrigger: { trigger: section, start: 'top 75%', once: true },
+                });
+            }
+        }
 
-        // Sticky stacking cards: CSS (.is-stacked) makes each entry stick at the
-        // top so the next card scrolls up and stacks over it. The heading stays
-        // sticky too; the rail line fills with scroll and the active dot grows.
-        ol.classList.add('is-stacked');
-
+        // Each experience fades in one at a time as it scrolls into view; the
+        // earlier ones stay in place above it.
         items.forEach((item) => {
-            // Each card animates in as it scrolls up, before it sticks.
             gsap.from(item, {
                 autoAlpha: 0,
-                y: 48,
+                y: 40,
                 duration: 0.6,
                 ease: 'power2.out',
-                scrollTrigger: { trigger: item, start: 'top 88%', once: true },
-            });
-            // Mark the card active while it is the one stuck at the top.
-            ScrollTrigger.create({
-                trigger: item,
-                start: 'top 8rem',
-                end: 'bottom 8rem',
-                onToggle: (self) => item.classList.toggle('is-active', self.isActive),
+                scrollTrigger: { trigger: item, start: 'top 82%', once: true },
             });
         });
 
-        // Vertical rail fills downward with scroll progress through the list.
+        // Vertical rail line draws downward with scroll progress.
         gsap.fromTo(
             ol,
             { '--tl-scale': 0 },
             {
                 '--tl-scale': 1,
                 ease: 'none',
-                scrollTrigger: { trigger: ol, start: 'top 80%', end: 'bottom 70%', scrub: 1 },
+                scrollTrigger: { trigger: ol, start: 'top 80%', end: 'bottom 60%', scrub: 1 },
             }
         );
+
+        // Enlarge the dot of the entry nearest the focus line.
+        items.forEach((item) => {
+            ScrollTrigger.create({
+                trigger: item,
+                start: 'top 55%',
+                end: 'bottom 45%',
+                onToggle: (self) => item.classList.toggle('is-active', self.isActive),
+            });
+        });
     }
 })();
