@@ -390,7 +390,13 @@
                     if (!target) return;
                     event.preventDefault();
                     const offset = header ? -header.offsetHeight : 0;
-                    lenis.scrollTo(target, { offset });
+                    // Fixed ~1s ease-out jump (quick start, gentle settle) so
+                    // near and far links feel equally snappy-but-smooth.
+                    lenis.scrollTo(target, {
+                        offset,
+                        duration: 1,
+                        easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)),
+                    });
                 });
             });
         }
