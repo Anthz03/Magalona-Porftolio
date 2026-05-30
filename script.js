@@ -366,6 +366,18 @@
         gsap.registerPlugin(ScrollTrigger);
         ScrollTrigger.config({ ignoreMobileResize: true });
 
+        // ---- Lenis smooth scroll (progressive enhancement) ----
+        // Drives the real page scroll (no wrapper transform), so the fixed
+        // header and ScrollTrigger pinning keep working. Bridged to GSAP.
+        const hasLenis = typeof window.Lenis !== 'undefined';
+        let lenis = null;
+        if (hasLenis) {
+            lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time) => lenis.raf(time * 1000));
+            gsap.ticker.lagSmoothing(0);
+        }
+
         gsap.context(() => {
             const mm = gsap.matchMedia();
 
