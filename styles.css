@@ -251,10 +251,6 @@ body.modal-open {
         inset: 0;
         padding-bottom: 0;
     }
-
-    #experience ol.is-stepper::before {
-        display: none;
-    }
 }
 
 /* Project card images: base scale gives headroom for initProjects' ±5%

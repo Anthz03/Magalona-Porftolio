@@ -696,6 +696,7 @@
         ol.classList.add('is-stepper');
         gsap.set(items, { autoAlpha: 0 });
         gsap.set(items[0], { autoAlpha: 1 });
+        gsap.set(ol, { '--tl-scale': 0 });
 
         const tl = gsap.timeline({
             scrollTrigger: {
@@ -715,5 +716,9 @@
                 .to(items[i], { autoAlpha: 1, ease: 'none', duration: 0.4 }, '>-0.15')
                 .to({}, { duration: 0.5 });
         }
+
+        // Draw the timeline rail downward across the whole sequence, so the
+        // line descends in step with the experiences and the fixed title.
+        tl.to(ol, { '--tl-scale': 1, ease: 'none', duration: tl.duration() }, 0);
     }
 })();
