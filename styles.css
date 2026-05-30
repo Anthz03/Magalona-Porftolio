@@ -241,15 +241,34 @@ body.modal-open {
    only the active one is visible; initTimeline adds .is-stepper and drives the
    opacity. No class (mobile / reduced-motion / no-GSAP) = normal vertical list. */
 @media (min-width: 768px) {
-    #experience ol.is-stepper {
-        position: relative;
-        min-height: 20rem;
+    /* Sticky stacking cards: each entry sticks at the top and the next card
+       scrolls up and stacks over it. initTimeline adds .is-stacked. */
+    #experience ol.is-stacked {
+        padding-left: 2.5rem;
     }
 
-    #experience ol.is-stepper > li {
-        position: absolute;
-        inset: 0;
-        padding-bottom: 0;
+    #experience ol.is-stacked > li {
+        position: sticky;
+        top: 7rem;
+        background: rgb(var(--rgb-tertiary));
+        border: 1px solid rgb(var(--rgb-primary) / 0.08);
+        border-radius: 1rem;
+        padding: 1.75rem 2rem;
+        margin-bottom: 3.5rem;
+        box-shadow: 0 12px 40px rgb(0 0 0 / 0.07);
+    }
+
+    #experience ol.is-stacked > li:last-child {
+        margin-bottom: 0;
+    }
+
+    /* Dot sits on the rail in the left gutter; enlarges while its card is active. */
+    #experience ol.is-stacked > li > span:first-child {
+        left: -2.6rem;
+    }
+
+    #experience ol.is-stacked > li.is-active .timeline-dot {
+        transform: scale(2);
     }
 }
 
@@ -404,6 +423,16 @@ html.dark {
 
 
 /* Large Mori-3 popping out from right side of Experience section */
+/* Clips #moriExperience without putting overflow:hidden on the section, so the
+   section's sticky timeline cards aren't broken by a clipping ancestor. */
+.mori-clip {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    z-index: 1;
+    pointer-events: none;
+}
+
 .mori-experience {
     display: none;
     position: absolute;

@@ -681,44 +681,46 @@
         const items = Array.from(ol.querySelectorAll('li'));
         if (!items.length) return;
 
-        // Mobile / reduced-motion / no-GSAP: leave entries in normal vertical
-        // flow, fully visible (no pin, no stepper).
-        if (!isDesktop) return;
-
-        const section = document.getElementById('experience');
-        if (!section) return;
-
-        // Pin the section and reveal entries ONE AT A TIME: the heading and the
-        // Mori stay fixed (they live in the pinned section) while each entry
-        // crossfades in over a long scroll. `.is-stepper` switches the <ol> to
-        // the absolute-stacked layout in CSS; without it the list is the
-        // normal fallback.
-        ol.classList.add('is-stepper');
-        gsap.set(items, { autoAlpha: 0 });
-        gsap.set(items[0], { autoAlpha: 1 });
-        gsap.set(ol, { '--tl-scale': 0 });
-
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: section,
-                start: 'top top',
-                end: () => '+=' + items.length * window.innerHeight * 0.8,
-                pin: true,
-                scrub: 1,
-                anticipatePin: 1,
-                invalidateOnRefresh: true,
-            },
+        items.forEach((item) => {
+            const dot = item.querySelector('span');
+            if (dot) dot.classList.add('timeline-dot');
         });
 
-        // Crossfade between consecutive entries, holding (dwell) on each.
-        for (let i = 1; i < items.length; i += 1) {
-            tl.to(items[i - 1], { autoAlpha: 0, ease: 'none', duration: 0.4 })
-                .to(items[i], { autoAlpha: 1, ease: 'none', duration: 0.4 }, '>-0.15')
-                .to({}, { duration: 0.5 });
-        }
+        // Mobile / reduced-motion / no-GSAP: plain vertical list, static line.
+        if (!isDesktop) return;
 
-        // Draw the timeline rail downward across the whole sequence, so the
-        // line descends in step with the experiences and the fixed title.
-        tl.to(ol, { '--tl-scale': 1, ease: 'none', duration: tl.duration() }, 0);
+        // Sticky stacking cards: CSS (.is-stacked) makes each entry stick at the
+        // top so the next card scrolls up and stacks over it. The heading stays
+        // sticky too; the rail line fills with scroll and the active dot grows.
+        ol.classList.add('is-stacked');
+
+        items.forEach((item) => {
+            // Each card animates in as it scrolls up, before it sticks.
+            gsap.from(item, {
+                autoAlpha: 0,
+                y: 48,
+                duration: 0.6,
+                ease: 'power2.out',
+                scrollTrigger: { trigger: item, start: 'top 88%', once: true },
+            });
+            // Mark the card active while it is the one stuck at the top.
+            ScrollTrigger.create({
+                trigger: item,
+                start: 'top 8rem',
+                end: 'bottom 8rem',
+                onToggle: (self) => item.classList.toggle('is-active', self.isActive),
+            });
+        });
+
+        // Vertical rail fills downward with scroll progress through the list.
+        gsap.fromTo(
+            ol,
+            { '--tl-scale': 0 },
+            {
+                '--tl-scale': 1,
+                ease: 'none',
+                scrollTrigger: { trigger: ol, start: 'top 80%', end: 'bottom 70%', scrub: 1 },
+            }
+        );
     }
 })();
