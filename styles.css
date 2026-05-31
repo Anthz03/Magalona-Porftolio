@@ -210,7 +210,9 @@ body.modal-open {
 }
 
 .timeline-dot {
-    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    transition:
+        transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.55s ease;
     transform-origin: center;
 }
 
@@ -231,18 +233,35 @@ body.modal-open {
     left: 0;
     top: 0;
     bottom: 0;
-    width: 1px;
-    background: rgb(var(--rgb-primary) / 0.1);
+    width: 2px;
+    border-radius: 2px;
+    background: linear-gradient(
+        to bottom,
+        rgb(var(--rgb-primary) / 0.5),
+        rgb(var(--rgb-primary) / 0.18)
+    );
     transform: scaleY(var(--tl-scale, 1));
     transform-origin: top;
 }
 
-/* Experience pinned crossfade stepper (desktop): entries stack in one spot and
-   only the active one is visible; initTimeline adds .is-stepper and drives the
-   opacity. No class (mobile / reduced-motion / no-GSAP) = normal vertical list. */
-/* Enlarge the dot of the experience nearest the focus line. */
+/* Active-entry emphasis (only on the GSAP-driven path — initTimeline adds
+   .is-animated; without it, e.g. reduced-motion / no-JS, every entry stays
+   fully visible). Entries rest slightly dimmed and the one crossing mid-screen
+   brightens to full. `filter` is used (not opacity) so it composes with the
+   inline opacity GSAP writes during the fade-in instead of being overridden. */
+#experience ol.is-animated li {
+    filter: opacity(0.5);
+    transition: filter 0.45s ease;
+}
+
+#experience ol.is-animated li.is-active {
+    filter: opacity(1);
+}
+
+/* Enlarge + ring the dot of the experience nearest the focus line. */
 #experience li.is-active .timeline-dot {
-    transform: scale(2);
+    transform: scale(2.2);
+    box-shadow: 0 0 0 4px rgb(var(--rgb-primary) / 0.12);
 }
 
 /* Project card images: base scale gives headroom for initProjects' ±5%

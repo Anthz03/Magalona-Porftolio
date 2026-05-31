@@ -557,6 +557,11 @@
                         scrub: 1,
                         anticipatePin: 1,
                         invalidateOnRefresh: true,
+                        // Journey sits above Experience/Skills/etc. Refresh this
+                        // pin first so its added scroll length is accounted for
+                        // when those later sections' triggers compute positions
+                        // (otherwise they fire ~1 pin-length too early).
+                        refreshPriority: 1,
                     },
                 });
             }
@@ -670,6 +675,11 @@
             if (dot) dot.classList.add('timeline-dot');
         });
 
+        // Marks the GSAP-driven path so the rest/active dimming in CSS only
+        // applies when entries are actually being animated (keeps the
+        // reduced-motion / no-JS fallback fully visible).
+        ol.classList.add('is-animated');
+
         // The heading fades/rises in with the section, then scrolls away
         // normally (not pinned, not sticky).
         if (section) {
@@ -691,10 +701,10 @@
         items.forEach((item) => {
             gsap.from(item, {
                 autoAlpha: 0,
-                y: 40,
-                duration: 0.6,
-                ease: 'power2.out',
-                scrollTrigger: { trigger: item, start: 'top 82%', once: true },
+                y: 56,
+                duration: 0.8,
+                ease: 'power3.out',
+                scrollTrigger: { trigger: item, start: 'top 85%', once: true },
             });
         });
 
@@ -710,11 +720,14 @@
         );
 
         // Enlarge the dot of the entry nearest the focus line.
+        // The entry currently crossing the viewport center is "active" — its
+        // dot enlarges/rings and it brightens to full while its neighbours rest
+        // dimmed. The center band gives a wide, continuous active window.
         items.forEach((item) => {
             ScrollTrigger.create({
                 trigger: item,
-                start: 'top 55%',
-                end: 'bottom 45%',
+                start: 'top center',
+                end: 'bottom center',
                 onToggle: (self) => item.classList.toggle('is-active', self.isActive),
             });
         });
