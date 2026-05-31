@@ -581,3 +581,58 @@ html.lenis body {
         display: none;
     }
 }
+
+/* ── Skills: tool chips + list icons ─────────────────── */
+/* Monochrome icons inherit currentColor so they track the theme (incl. dark).
+   Chips rest quiet (hairline outline, muted icon) and lift on hover. */
+.skill-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.7rem 0.4rem 0.6rem;
+    border: 1px solid rgb(var(--rgb-primary) / 0.1);
+    border-radius: 0.625rem;
+    font-size: 0.875rem;
+    line-height: 1;
+    white-space: nowrap;
+    color: rgb(var(--rgb-primary) / 0.82);
+    background: rgb(var(--rgb-primary) / 0.015);
+    transition:
+        border-color 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+        color 0.3s ease,
+        background-color 0.3s ease,
+        transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.skill-chip iconify-icon {
+    font-size: 1.05rem;
+    color: rgb(var(--rgb-primary) / 0.5);
+    transition:
+        color 0.3s ease,
+        transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.skill-chip:hover {
+    border-color: rgb(var(--rgb-primary) / 0.28);
+    background: rgb(var(--rgb-primary) / 0.05);
+    color: rgb(var(--rgb-primary));
+    transform: translateY(-2px);
+}
+
+.skill-chip:hover iconify-icon {
+    color: rgb(var(--rgb-primary));
+    transform: scale(1.12);
+}
+
+.skill-list-icon {
+    font-size: 1rem;
+    flex-shrink: 0;
+    color: rgb(var(--rgb-secondary));
+}
+
+/* Avoid a flash of unstyled custom-element text before the web component
+   upgrades / icons load. */
+iconify-icon {
+    display: inline-block;
+    vertical-align: -0.125em;
+}
