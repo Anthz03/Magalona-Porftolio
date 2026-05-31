@@ -433,6 +433,7 @@
                     initMori(isDesktop);
                     initTimeline(isDesktop);
                     initJourney(isDesktop);
+                    initQuote(isDesktop);
                 }
             );
         });
@@ -781,5 +782,83 @@
                 onToggle: (self) => item.classList.toggle('is-active', self.isActive),
             });
         });
+    }
+
+    // Quote interlude — "Turning Ideas Into Efficient Systems".
+    // Desktop: CSS-sticky stage with a scroll-scrubbed word-by-word reveal.
+    // Mobile: one-shot sequenced reveal on view-enter (no pin).
+    function initQuote(isDesktop) {
+        const section = document.getElementById('philosophy');
+        if (!section) return;
+
+        const words = Array.from(section.querySelectorAll('.quote-word'));
+        const fill = section.querySelector('.quote-progress-fill');
+        if (!words.length) return;
+
+        const N = words.length;
+        const slot = 1 / N;
+        const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+
+        // Map raw scroll progress (0..1) so all words finish by ~0.85,
+        // leaving a hold tail where the full quote stays bright before release.
+        const HOLD_TAIL = 0.85;
+
+        function render(rawProgress) {
+            const p = clamp(rawProgress / HOLD_TAIL, 0, 1);
+
+            words.forEach((word, i) => {
+                // reach: 0 -> 1 as scroll passes this word's slot, then holds.
+                const reach = clamp((p - i * slot) / slot, 0, 1);
+
+                // active: triangular peak (1.0) only while this word is current,
+                // falling to 0 within +/- one slot of its center.
+                const center = (i + 0.5) * slot;
+                const active = clamp(1 - Math.abs(p - center) / slot, 0, 1);
+
+                const opacity = 0.2 + reach * 0.45 + active * 0.35;
+                const scale = 1 + active * 0.04;
+                const glow = active;
+
+                gsap.set(word, {
+                    opacity: opacity,
+                    scale: scale,
+                    textShadow: '0 0 ' + (glow * 18) + 'px rgb(var(--rgb-primary) / ' + (glow * 0.25) + ')',
+                });
+            });
+
+            if (fill) gsap.set(fill, { width: (rawProgress * 100) + '%' });
+        }
+
+        if (isDesktop) {
+            // Mute baseline immediately so nothing flashes full-bright.
+            render(0);
+            ScrollTrigger.create({
+                trigger: section,
+                start: 'top top',
+                end: 'bottom bottom',
+                scrub: 1,
+                invalidateOnRefresh: true,
+                onUpdate: (self) => render(self.progress),
+            });
+        } else {
+            // Mobile: no pin. One-shot sequenced reveal on view-enter.
+            gsap.set(words, { opacity: 0.2, scale: 1 });
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 75%',
+                    toggleActions: 'play none none none',
+                },
+            });
+            tl.to(words, {
+                opacity: 0.85,
+                duration: 0.4,
+                stagger: 0.18,
+                ease: 'power2.out',
+            });
+            if (fill) {
+                tl.to(fill, { width: '100%', duration: words.length * 0.18 + 0.4, ease: 'none' }, 0);
+            }
+        }
     }
 })();

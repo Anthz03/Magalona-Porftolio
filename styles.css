@@ -636,3 +636,66 @@ iconify-icon {
     display: inline-block;
     vertical-align: -0.125em;
 }
+
+/* Quote interlude — "Turning Ideas Into Efficient Systems".
+   Monochrome scroll-reveal between Services and Experience.
+   Default (no-JS / reduced-motion) state is fully legible; GSAP mutes
+   words only when it takes over (see initQuote in script.js). */
+.quote-interlude {
+    height: auto;
+}
+
+.quote-stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6rem 1.5rem;
+    min-height: 60vh;
+}
+
+.quote-line {
+    margin: 0;
+    font-weight: 300;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    font-size: clamp(2.25rem, 7vw, 5.5rem);
+    max-width: 18ch;
+}
+
+.quote-word {
+    display: inline-block;
+    color: rgb(var(--rgb-primary));
+    /* opacity/transform/text-shadow are written inline by GSAP during the
+       scrub; keep them off CSS transitions so they don't fight GSAP. */
+}
+
+.quote-progress {
+    margin-top: clamp(2rem, 5vh, 3.5rem);
+    width: min(60%, 28rem);
+    height: 1px;
+    background: rgb(var(--rgb-primary) / 0.12);
+    overflow: hidden;
+}
+
+.quote-progress-fill {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: rgb(var(--rgb-primary) / 0.6);
+}
+
+@media (min-width: 768px) {
+    /* Tall section gives the sticky stage room to scrub. ~250vh tunable. */
+    .quote-interlude {
+        height: 250vh;
+    }
+
+    .quote-stage {
+        position: sticky;
+        top: 0;
+        min-height: 100vh;
+        padding: 0 5rem;
+    }
+}
