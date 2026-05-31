@@ -3,3 +3,6 @@ continuation.md
 
 # Claude Code local settings (machine-specific)
 .claude/settings.local.json
+
+# Design docs / planning notes — kept local, not part of the shipped site
+docs/superpowers/
