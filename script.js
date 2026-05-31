@@ -367,6 +367,20 @@
         gsap.registerPlugin(ScrollTrigger);
         ScrollTrigger.config({ ignoreMobileResize: true });
 
+        // Pins are calculated for a top-down layout. If the browser restores a
+        // mid-page scroll position on reload, the pinned Journey section lays
+        // out wrong — everything below it shifts by the pin length and Journey
+        // appears blank until you scroll to the top and a refresh corrects it.
+        // Opt out of scroll restoration so a reload always starts at the top,
+        // where pins position correctly. ScrollTrigger resets this to 'auto' on
+        // every refresh, so re-assert it after each one (and set it now).
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+            ScrollTrigger.addEventListener('refresh', () => {
+                history.scrollRestoration = 'manual';
+            });
+        }
+
         // ---- Lenis smooth scroll (progressive enhancement) ----
         // Drives the real page scroll (no wrapper transform), so the fixed
         // header and ScrollTrigger pinning keep working. Bridged to GSAP.
@@ -425,7 +439,21 @@
 
         // Late-loading images (Journey photos, project art, Mori) change layout
         // and can mis-place triggers; refresh once everything has loaded.
-        window.addEventListener('load', () => ScrollTrigger.refresh());
+        // Also: the pinned Journey only lays out correctly from a top-down
+        // scroll, so if a reload left the page scrolled mid-document, force it
+        // back to the top first (unless deep-linked to an anchor) before the
+        // refresh — otherwise Journey renders shifted/blank until you scroll up.
+        window.addEventListener('load', () => {
+            // If a reload left the page scrolled mid-document, force it back to
+            // the top (unless deep-linked to an anchor) before the refresh, so
+            // the pinned Journey doesn't render shifted/blank. The refresh below
+            // re-asserts manual scroll restoration via the listener above.
+            if (!window.location.hash) {
+                window.scrollTo(0, 0);
+                if (lenis) lenis.scrollTo(0, { immediate: true });
+            }
+            ScrollTrigger.refresh();
+        });
     }
 
     // Scroll-effect implementations, invoked from the matchMedia callback above.
