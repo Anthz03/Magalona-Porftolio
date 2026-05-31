@@ -742,26 +742,30 @@
             }
         }
 
-        // Each experience fades in one at a time as it scrolls into view; the
-        // earlier ones stay in place above it.
+        // Each entry fades in exactly when the rail line reaches its dot. The
+        // line below is drawn so its leading edge tracks the FOCUS viewport line
+        // (start 'top FOCUS' → end 'bottom FOCUS' keeps the drawn front pinned
+        // there); firing each entry's reveal when its top hits that same line
+        // makes the fade-in coincide with the line connecting the dot.
+        const FOCUS = '60%';
         items.forEach((item) => {
             gsap.from(item, {
                 autoAlpha: 0,
                 y: 56,
                 duration: 0.8,
                 ease: 'power3.out',
-                scrollTrigger: { trigger: item, start: 'top 85%', once: true },
+                scrollTrigger: { trigger: item, start: 'top ' + FOCUS, once: true },
             });
         });
 
-        // Vertical rail line draws downward with scroll progress.
+        // Vertical rail line draws downward; its front stays at the FOCUS line.
         gsap.fromTo(
             ol,
             { '--tl-scale': 0 },
             {
                 '--tl-scale': 1,
                 ease: 'none',
-                scrollTrigger: { trigger: ol, start: 'top 80%', end: 'bottom 60%', scrub: 1 },
+                scrollTrigger: { trigger: ol, start: 'top ' + FOCUS, end: 'bottom ' + FOCUS, scrub: 1 },
             }
         );
 
