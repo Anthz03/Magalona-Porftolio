@@ -553,3 +553,12 @@ html.lenis body {
 .lenis.lenis-smooth iframe {
     pointer-events: none;
 }
+
+/* Desktop Journey runs as a pinned horizontal scrub over the 8 unique
+   slides; the duplicate loop set (used only by the mobile auto-marquee)
+   is hidden at >=768px. */
+@media (min-width: 768px) {
+    .journey-slide:nth-child(n + 9) {
+        display: none;
+    }
+}

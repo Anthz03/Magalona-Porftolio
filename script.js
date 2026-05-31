@@ -294,7 +294,8 @@
     const journeyTrack = document.querySelector('.journey-track');
     const journeySection = document.getElementById('journey');
 
-    if (journeySlider && journeyTrack && journeySection && !reduceMotion) {
+    const journeyIsMobile = window.matchMedia('(max-width: 767px)').matches;
+    if (journeySlider && journeyTrack && journeySection && !reduceMotion && journeyIsMobile) {
         const initMarquee = () => {
             const slides = journeyTrack.querySelectorAll('.journey-slide');
             if (slides.length < 9) return;
@@ -539,48 +540,30 @@
         const section = document.getElementById('journey');
         if (!section) return;
 
-        // 2a. Scroll-velocity reactivity: speed the marquee with scroll velocity.
-        // The marquee handle is assigned lazily (on scroll-into-view), so the
-        // trigger is created unconditionally and guards inside onUpdate.
-        let resetTimer = null;
-        ScrollTrigger.create({
-            trigger: section,
-            start: 'top bottom',
-            end: 'bottom top',
-            onUpdate: (self) => {
-                if (!journeyMarqueeAnim) return;
-                const v = self.getVelocity();              // px/sec, signed
-                const boost = 1 + Math.min(Math.abs(v) / 1500, 3); // 1..4
-                journeyMarqueeAnim.playbackRate = boost;
-                clearTimeout(resetTimer);
-                resetTimer = setTimeout(() => {
-                    if (journeyMarqueeAnim) journeyMarqueeAnim.playbackRate = 1;
-                }, 180);
-            },
-        });
-
-        // 2b. Intra-frame parallax on each slide image (desktop only).
+        // Desktop: pin the section and scrub the belt horizontally with scroll.
         if (isDesktop) {
-            section.querySelectorAll('.journey-slide img').forEach((img) => {
-                gsap.fromTo(
-                    img,
-                    { yPercent: -5 },
-                    {
-                        yPercent: 5,
-                        ease: 'none',
-                        scrollTrigger: {
-                            trigger: section,
-                            start: 'top bottom',
-                            end: 'bottom top',
-                            scrub: true,
-                        },
-                    }
-                );
-            });
+            const slider = section.querySelector('.journey-slider');
+            const track = section.querySelector('.journey-track');
+            if (slider && track) {
+                const distance = () => Math.max(0, track.scrollWidth - slider.clientWidth);
+                gsap.to(track, {
+                    x: () => -distance(),
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top top',
+                        end: () => '+=' + distance(),
+                        pin: true,
+                        scrub: 1,
+                        anticipatePin: 1,
+                        invalidateOnRefresh: true,
+                    },
+                });
+            }
         }
 
-        // 2c. Heading + intro reveal — scoped to the header div so it doesn't
-        // grab the slide caption <p>s inside the marquee.
+        // Heading + intro reveal — scoped to the header div so it doesn't
+        // grab the slide caption <p>s inside the belt. (Both branches.)
         const header = section.querySelector(':scope > div');
         const heads = header ? header.querySelectorAll('h2, p') : [];
         if (heads.length) {
