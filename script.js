@@ -430,7 +430,7 @@
 
     // Scroll-effect implementations, invoked from the matchMedia callback above.
     function initSectionReveals() {
-        const els = document.querySelectorAll('main section, footer');
+        const els = document.querySelectorAll('main section');
 
         // Set the pre-animation state GSAP tweens FROM *before* the batch is
         // created, so there's no flash of fully-visible content on first paint.
@@ -452,6 +452,24 @@
                 }),
             once: true,
         });
+
+        // The footer is revealed on its own trigger, NOT in the batch above.
+        // It sits at the very bottom of the document, so a 'top 88%' start can
+        // resolve just past the maximum scroll position and never fire — the
+        // footer would stay hidden the first time you reach Contact. 'top
+        // bottom' fires the moment it enters the viewport (including during the
+        // Contact anchor jump), so it's always reachable.
+        const footer = document.querySelector('footer');
+        if (footer) {
+            gsap.set(footer, { autoAlpha: 0, y: 40 });
+            gsap.to(footer, {
+                autoAlpha: 1,
+                y: 0,
+                duration: 0.7,
+                ease: 'power2.out',
+                scrollTrigger: { trigger: footer, start: 'top bottom', once: true },
+            });
+        }
     }
     function initHero(isDesktop) {
         if (!isDesktop) return;
