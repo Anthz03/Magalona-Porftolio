@@ -203,6 +203,35 @@
             ],
             stack: 'C# · ASP.NET · SQL',
         },
+        bms: {
+            title: 'Barangay Management System',
+            meta: 'Barangay Management System · 2026',
+            role: 'System Analyst / Developer',
+            image: 'img/BMS/screen.png',
+
+            description: [
+                'The Barangay Management System is a centralized web-based platform designed to streamline the management of barangay records, services, and administrative operations.',
+                'The system provides modules for resident and household management, document issuance, scheduling, announcements, audit logging, user management, and reporting, with role-based access for Admin and Staff users.'
+            ],
+
+            bullets: [
+                'Implemented authentication with separate Admin and Staff access levels',
+                'Developed resident management with search, registration, editing, deactivation, RBI renewal, and duplicate entry checking',
+                'Implemented household management for family heads, members, and household records',
+                'Developed document request and issuance workflows with PDF printing and downloading',
+                'Implemented calendar-based scheduling with event creation, editing, deletion, and monthly PDF generation',
+                'Developed announcements with categories, images, filtering, editing, and soft deletion',
+                'Implemented immutable audit logs tracking actors, actions, timestamps, and affected records',
+                'Implemented Admin-only user management with role assignment and account activation/deactivation',
+                'Developed reports for resident and document data with date-range filtering and PDF/print export',
+                'Implemented role-based access control and input sanitization across the system'
+            ],
+
+            stack: 'Web Application · Django · Database Management · RBAC',
+
+            linkUrl: 'https://github.com/Anthz03/Barangay-Management-System',
+            linkLabel: 'View on GitHub',
+        },
     };
 
     const modal = document.getElementById('projectModal');
