@@ -112,7 +112,7 @@
             title: 'VerifAI',
             meta: 'HackFest GDG Loyola · March 2026',
             role: 'Lead System Analyst',
-            image: 'img/VerifAI.png',
+            image: 'img/VERIFAI/screen.png',
             description: [
                 'VerifAI is an AI-powered Google Docs extension that helps researchers and students verify the credibility of their sources in real time, directly inside the document they\'re writing.',
                 'Built during HackFest GDG Loyola, the tool surfaces a 100-point credibility score for each citation — cutting research verification time by roughly 40% compared to manual fact-checking workflows.',
@@ -125,6 +125,27 @@
             ],
             stack: 'Google Docs Add-on · AI · System Analysis',
             linkUrl: 'https://github.com/abbychiu7/hackfest26',
+            linkLabel: 'View on GitHub',
+        },
+        fbms: {
+            title: 'FBMS Kiosk',
+            meta: 'De La Salle-College of Saint Benilde · 2026',
+            role: 'System Analyst / Developer',
+            image: 'img/FBMS/screen.png',
+            description: [
+                'FBMS Kiosk is an Android-based Feedback Management System designed for Benilde service counters such as the Registrar\'s Office and Library, allowing students and visitors to quickly submit feedback after receiving service.',
+                'The kiosk authenticates as a trusted device, dynamically loads administrator-published surveys, and anonymously submits responses while automatically associating each submission with its department and location.'
+            ],
+            bullets: [
+                'Designed a kiosk-based feedback experience requiring no user login or app installation',
+                'Implemented trusted device authentication for public-facing Android tablets',
+                'Enabled dynamic rendering of administrator-published surveys and different question types',
+                'Configured anonymous feedback submission with automatic department and location tracking',
+                'Implemented online/offline device status monitoring for staff visibility',
+                'Designed the system to reliably collect feedback across multiple Benilde service counters'
+            ],
+            stack: 'Android · Feedback Management · REST API · Kiosk System',
+            linkUrl: 'https://github.com/Anthz03/MOBDEVT-FBMS-Kiosk',
             linkLabel: 'View on GitHub',
         },
         pathingin: {
@@ -169,7 +190,7 @@
             title: 'ClickShift',
             meta: 'DLS-CSB · May – August 2025',
             role: 'System Developer',
-            image: 'img/ClickShift.png',
+            image: 'img/CLICKSHIFT/screen.png',
             description: [
                 'ClickShift is a web-based smart scheduling system that automates shift generation and rotation for organizations managing rotating staff — built to solve the fairness and overlap problems that come with manual scheduling.',
                 'I built the platform end-to-end during my first-year systems coursework, focusing on real input formats (CSV/Excel) and the scheduling logic that actually decides who works when.',
@@ -658,28 +679,6 @@
                 ease: 'power3.out',
                 stagger: 0.12,
                 scrollTrigger: { trigger: section, start: 'top 72%', once: true },
-            });
-        }
-
-        // In-frame image parallax (desktop only).
-        if (isDesktop) {
-            cards.forEach((card) => {
-                const img = card.querySelector('img');
-                if (!img) return;
-                gsap.fromTo(
-                    img,
-                    { yPercent: -5 },
-                    {
-                        yPercent: 5,
-                        ease: 'none',
-                        scrollTrigger: {
-                            trigger: card,
-                            start: 'top bottom',
-                            end: 'bottom top',
-                            scrub: true,
-                        },
-                    }
-                );
             });
         }
     }
