@@ -232,6 +232,44 @@
             linkUrl: 'https://github.com/Anthz03/Barangay-Management-System',
             linkLabel: 'View on GitHub',
         },
+        flowlens: {
+            title: 'FlowLens',
+            meta: 'Independent Project · 2026',
+            role: 'Builder',
+            image: 'img/Flow-Lens/hero.png',
+            description: [
+                'FlowLens is a process discovery platform built for small and medium enterprises to document and visualize how work actually gets done.',
+                'It scores each process across documentation, automation, role clarity, complexity, and efficiency, then surfaces bottlenecks, manual tasks, and automated recommendations for making it work better.',
+            ],
+            bullets: [
+                'Built a process health scoring model across five dimensions',
+                'Designed process maps and AS-IS vs TO-BE comparison views',
+                'Implemented bottleneck detection with per-step time breakdowns',
+                'Shipped email/password and Google sign-in authentication',
+            ],
+            stack: 'Process Discovery · Workflow Analytics · SaaS',
+            linkUrl: 'https://flow-lens-eight.vercel.app/',
+            linkLabel: 'Visit site',
+        },
+        oneoptics: {
+            title: 'One Optics Clinic',
+            meta: 'Design Thinking Prototype · 2026',
+            role: 'Builder',
+            image: 'img/One-Optics-Clinic/screen.png',
+            description: [
+                'One Optics Clinic is a web platform prototype for an optical clinic and eyewear retailer, built around a "start to finish" care model — book a professional eye exam online, then browse premium eyewear fitted by the same opticians.',
+                'The design brings exam scheduling and eyewear retail into a single flow, from appointment booking and doctor selection through to a browsable frame catalog and in-clinic fitting services.',
+            ],
+            bullets: [
+                'Designed the online appointment booking flow with time slot and doctor selection',
+                'Built an eyewear catalog for premium frames and lenses',
+                'Modeled end-to-end services spanning exams, fitting, and repairs',
+                'Applied a design thinking process to shape the end-to-end patient journey',
+            ],
+            stack: 'Design Thinking · UX Prototype · Online Booking',
+            linkUrl: 'https://design-thinking-prototype-drab.vercel.app/',
+            linkLabel: 'Visit site',
+        },
     };
 
     const modal = document.getElementById('projectModal');
