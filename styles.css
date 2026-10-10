@@ -699,3 +699,116 @@ iconify-icon {
         padding: 0 5rem;
     }
 }
+
+/* ── Certificates: matted credential cards ───────────── */
+/* Image sits in a mat (like a framed document); a hairline fact sheet
+   replaces the loose meta lines. Tokens keep it theme-aware. */
+.cert-card {
+    outline: none;
+}
+
+.cert-frame {
+    box-shadow: 0 1px 2px rgb(var(--rgb-primary) / 0.06);
+    transition:
+        transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cert-card:hover .cert-frame,
+.cert-card:focus-visible .cert-frame {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 32px rgb(var(--rgb-primary) / 0.12);
+}
+
+.cert-card:focus-visible .cert-mat {
+    outline: 2px solid rgb(var(--rgb-primary) / 0.6);
+    outline-offset: 4px;
+}
+
+.cert-meta {
+    border-top: 1px solid rgb(var(--rgb-primary) / 0.1);
+}
+
+.cert-meta > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid rgb(var(--rgb-primary) / 0.1);
+}
+
+.cert-meta dt {
+    color: rgb(var(--rgb-secondary));
+}
+
+.cert-meta dd {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+.cert-verify {
+    transition: color 0.3s ease;
+}
+
+.cert-card:hover .cert-verify,
+.cert-card:focus-visible .cert-verify {
+    color: rgb(var(--rgb-primary));
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cert-frame {
+        transition: none;
+    }
+
+    .cert-card:hover .cert-frame,
+    .cert-card:focus-visible .cert-frame {
+        transform: none;
+    }
+}
+
+/* ── Experience: centered, alternating timeline (md and up) ──
+   Rail runs down the middle; entries alternate left / right of it.
+   Below md the original single left rail is kept. */
+@media (min-width: 768px) {
+    #experience ol {
+        margin-left: 0;
+    }
+
+    #experience ol::before {
+        left: 50%;
+        transform: translateX(-50%) scaleY(var(--tl-scale, 1));
+    }
+
+    #experience ol li {
+        width: 50%;
+        padding-left: 3.5rem;
+        padding-right: 3.5rem;
+    }
+
+    #experience ol li:nth-child(odd) {
+        text-align: right;
+        padding-left: 0;
+    }
+
+    #experience ol li:nth-child(even) {
+        margin-left: 50%;
+        padding-right: 0;
+    }
+
+    #experience ol li:nth-child(odd) p {
+        margin-left: auto;
+    }
+
+    #experience ol li > span:first-child {
+        left: auto;
+        right: auto;
+    }
+
+    #experience ol li:nth-child(odd) > span:first-child {
+        right: -4px;
+    }
+
+    #experience ol li:nth-child(even) > span:first-child {
+        left: -4px;
+    }
+}
