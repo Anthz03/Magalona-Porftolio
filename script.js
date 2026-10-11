@@ -207,7 +207,7 @@
             title: 'Barangay Management System',
             meta: 'Barangay Management System · 2026',
             role: 'System Analyst / Developer',
-            image: 'img/BMS/screen.png',
+            image: 'img/BMS/hero.png',
 
             description: [
                 'The Barangay Management System is a centralized web-based platform designed to streamline the management of barangay records, services, and administrative operations.',
@@ -232,6 +232,24 @@
             linkUrl: 'https://github.com/Anthz03/Barangay-Management-System',
             linkLabel: 'View on GitHub',
         },
+        entree: {
+            title: 'EnTree',
+            meta: 'Information Systems · Database Management Project',
+            role: 'Developer',
+            image: 'img/EnTree/hero.png',
+            description: [
+                'EnTree is a job matching platform built around your skills. It matches users to open positions using their skills and TESDA certifications, so they spend less time searching and more time growing.',
+                'Built as an Information Systems database management project, it ranks jobs by how well a user fits and shows which skills to build next.',
+            ],
+            bullets: [
+                'Built skill profiles with proficiency levels so employers see what applicants bring',
+                'Recorded TESDA certifications with dates to back up skills with proof',
+                'Ranked jobs by match score, showing fit and skill gaps for each posting',
+                'Added job browsing with industry and salary range filters',
+                'Showed real employers and full job details on every posting',
+            ],
+            stack: 'Database Management · Job Matching · Skills & Certifications',
+        },
         flowlens: {
             title: 'FlowLens',
             meta: 'Independent Project · 2026',
@@ -255,7 +273,7 @@
             title: 'One Optics Clinic',
             meta: 'Design Thinking Prototype · 2026',
             role: 'Builder',
-            image: 'img/One-Optics-Clinic/screen.png',
+            image: 'img/One-Optics-Clinic/hero.png',
             description: [
                 'One Optics Clinic is a web platform prototype for an optical clinic and eyewear retailer, built around a "start to finish" care model — book a professional eye exam online, then browse premium eyewear fitted by the same opticians.',
                 'The design brings exam scheduling and eyewear retail into a single flow, from appointment booking and doctor selection through to a browsable frame catalog and in-clinic fitting services.',
