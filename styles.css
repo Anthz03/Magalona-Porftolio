@@ -803,3 +803,35 @@ iconify-icon {
         left: -4px;
     }
 }
+
+/* ---------- Interactive 3D Kyle (kyle3d.js) ---------- */
+#kyleCanvas { touch-action: pan-y; outline: none; }
+#kyleCanvas:focus-visible { box-shadow: inset 0 0 0 2px rgb(var(--rgb-primary) / 0.4); }
+.kyle-hint { opacity: 0; transition: opacity 0.6s ease 0.6s; }
+#kyleStage.kyle-ready .kyle-hint { opacity: 1; }
+#kyleStage .kyle-fallback { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; }
+.dark #kyleStage .kyle-fallback { mix-blend-mode: normal; }
+
+
+.kyle-hehe {
+    position: absolute;
+    top: 28%;
+    font-size: clamp(18px, 2.2vw, 28px);
+    font-weight: 500;
+    font-style: italic;
+    color: rgb(var(--rgb-primary));
+    pointer-events: none;
+    opacity: 0;
+    animation: kyle-hehe 1.4s cubic-bezier(.2, .7, .3, 1) forwards;
+}
+.kyle-hehe--left  { left: 10%;  --rot: -14deg; }
+.kyle-hehe--right { right: 10%; top: 38%; --rot: 12deg; }
+@keyframes kyle-hehe {
+    0%   { opacity: 0; transform: translateY(12px) rotate(var(--rot)) scale(.7); }
+    20%  { opacity: 1; transform: translateY(0) rotate(var(--rot)) scale(1.05); }
+    70%  { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-36px) rotate(var(--rot)) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .kyle-hehe { animation-duration: 1.2s; animation-timing-function: steps(1, end); }
+}

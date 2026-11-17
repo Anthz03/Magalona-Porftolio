@@ -1,33 +1,6 @@
 (() => {
     'use strict';
 
-    const themeToggle = document.getElementById('themeToggle');
-    const iconMoon = document.getElementById('iconMoon');
-    const iconSun = document.getElementById('iconSun');
-    const profileImg = document.getElementById('profileImg');
-    const profileImg2 = document.getElementById('profileImg2');
-    const moriExperience = document.getElementById('moriExperience');
-    const moriContact = document.getElementById('moriContact');
-
-    const syncIcons = () => {
-        const isDark = document.documentElement.classList.contains('dark');
-        iconMoon?.classList.toggle('hidden', isDark);
-        iconSun?.classList.toggle('hidden', !isDark);
-        if (profileImg)  profileImg.src  = isDark ? 'img/profile-dark.png'  : 'img/profile.jpg';
-        if (profileImg2) profileImg2.src = isDark ? 'img/profile2-dark.png' : 'img/profile-2.jpg';
-        if (moriExperience) moriExperience.src = isDark ? 'img/Mori/Mori-3-dark.jpg' : 'img/Mori/Mori-3.jpg';
-        if (moriContact)    moriContact.src    = isDark ? 'img/Mori/Mori-2-dark.jpg' : 'img/Mori/Mori-2.jpg';
-    };
-    syncIcons();
-
-    themeToggle?.addEventListener('click', () => {
-        document.documentElement.classList.add('theme-transitioning');
-        const isDark = document.documentElement.classList.toggle('dark');
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        syncIcons();
-        window.setTimeout(() => document.documentElement.classList.remove('theme-transitioning'), 300);
-    });
-
     const yearEl = document.getElementById('year');
     if (yearEl) {
         yearEl.textContent = new Date().getFullYear();
@@ -73,6 +46,25 @@
         const deleteSpeed = 55;
         const pauseFull = 1600;
         const pauseEmpty = 350;
+
+        // Lock the headline to its tallest greeting so typing never shifts the layout
+        // (CJK fallback fonts and wrapping change its height, which moved the 3D stage).
+        const headline = typewriterEl.closest('h1');
+        const lockHeight = () => {
+            if (!headline) return;
+            const shown = typewriterEl.textContent;
+            headline.style.minHeight = '';
+            let max = 0;
+            for (const g of greetings) {
+                typewriterEl.textContent = g;
+                max = Math.max(max, headline.offsetHeight);
+            }
+            typewriterEl.textContent = shown;
+            headline.style.minHeight = `${max}px`;
+        };
+        lockHeight();
+        document.fonts?.ready.then(lockHeight);
+        window.addEventListener('resize', lockHeight, { passive: true });
 
         let wordIndex = 0;
         let charIndex = greetings[0].length;
@@ -611,8 +603,7 @@
         const hero = document.querySelector('main > section.relative');
         if (!hero) return;
 
-        const portrait = document.getElementById('profileImg');
-        const portraitWrap = portrait ? portrait.closest('.group') : null;
+        const portraitWrap = document.getElementById('kyleStage');
         const sideRail = hero.querySelector('div.hidden.md\\:flex');
         const stats = hero.querySelector('.flex.flex-wrap.gap-12');
 
