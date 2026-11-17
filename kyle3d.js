@@ -1,12 +1,12 @@
 // Interactive 3D "Kyle" for the hero section.
 // Model: model/kyle_rigged.glb (built by blender/build_kyle_v2.py) — skinned, with
-// animation clips Idle, Wave, Happy, Thinking, Goodbye, Turn and face morph targets.
+// animation clips Idle, Wave, Happy, Goodbye, Turn and face morph targets.
+// (The GLB also has a Thinking clip; it is intentionally never played.)
 //
 // Interactions
 //   • page load → he waves hello;  hover him → he waves again
 //   • click/tap or Enter/Space → happy bounce + "hehe"
 //   • head follows the cursor anywhere on the page
-//   • leave him alone for a while → he starts thinking; move the mouse → back to idle
 //   • cursor leaves the window → goodbye wave
 //   • move the cursor around → curious face: eyes open and follow it, a brow lifts,
 //     a little "oh" on fast flicks; stop moving → back to his happy grin
@@ -107,8 +107,7 @@ function init() {
     let visible = true;
     let running = false;
 
-    const LOOPS = new Set(['Idle', 'Thinking']);
-    const THINK_AFTER = 14000;   // ms without input before he starts thinking
+    const LOOPS = new Set(['Idle']);
 
     // v = take-off speed (units/s); only from the ground so hops don't stack
     const hop = (v) => { if (!reduceMotion && hopY <= 0.001) hopV = Math.max(hopV, v); };
@@ -182,7 +181,7 @@ function init() {
 
     // ------------------------------------------------------------------ clips
     function restClip() {
-        return performance.now() - lastInput > THINK_AFTER ? 'Thinking' : 'Idle';
+        return 'Idle';
     }
 
     function play(name, fade = 0.3) {
@@ -208,9 +207,8 @@ function init() {
         play(name, 0.25);
     }
 
-    function poke() {               // any input: wake him up from thinking
+    function poke() {
         lastInput = performance.now();
-        if (current === 'Thinking') play('Idle', 0.5);
     }
 
     // ------------------------------------------------------------------ sizing
@@ -365,9 +363,6 @@ function init() {
         const dt = Math.min(clock.getDelta(), 0.05);
         const m = reduceMotion ? 0 : 1;
 
-        // drift into thinking when left alone
-        if (current === 'Idle' && performance.now() - lastInput > THINK_AFTER) play('Thinking', 0.8);
-
         // Reset the cursor-follow bones first: clips without a head track would otherwise
         // keep last frame's rotation and the added look rotation would pile up (spin).
         bones.neck?.o.quaternion.copy(bones.neck.rest);
@@ -391,7 +386,7 @@ function init() {
             tp = ease(ny) * 0.22;
         }
         // the head is busy during the turn; let the clip drive it
-        const follow = current === 'Turn' ? 0 : (current === 'Thinking' ? 0.4 : 1);
+        const follow = current === 'Turn' ? 0 : 1;
         // critically damped spring: smooth start/stop, no overshoot or jitter
         const w = 6;
         look.vy += (w * w * (ty * follow - look.yaw) - 2 * w * look.vy) * dt;
