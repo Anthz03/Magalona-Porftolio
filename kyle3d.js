@@ -49,7 +49,7 @@ function init() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;    // punchier than AgX for a toy-like look
-    renderer.toneMappingExposure = 1.0;
+    renderer.toneMappingExposure = 0.95;
 
     const scene = new THREE.Scene();
     const pmrem = new THREE.PMREMGenerator(renderer);
@@ -73,8 +73,8 @@ function init() {
     scene.add(hemi, key, fill, rim, top, top.target);
 
     // the site is dark-only: softer ambient lifts the shadows so shading reads flatter
-    scene.environmentIntensity = 0.32;
-    hemi.intensity = 0.5;
+    scene.environmentIntensity = 0.2;
+    hemi.intensity = 0.35;
     rim.intensity = 1.4;
 
     // ------------------------------------------------------------------ state
@@ -125,6 +125,12 @@ function init() {
             if (m && m.map) m.map.anisotropy = renderer.capabilities.getMaxAnisotropy();
             if (/Blush/i.test(m?.name || '')) { m.depthWrite = false; }
             if (m && 'sheen' in m) m.sheen = 0;     // sheen reads as a white film on dark cloth here
+            if (m?.name === 'MAT_Skin') {
+                // matte, richer skin: less grey specular wash, a touch more saturation
+                m.roughness = 0.78;
+                if ('specularIntensity' in m) m.specularIntensity = 0.25;
+                m.color.multiply(new THREE.Color(0.97, 0.9, 0.84));
+            }
         });
 
         // Normalise: feet on y=0, centred on x/z (rest pose).
