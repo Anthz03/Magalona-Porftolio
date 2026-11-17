@@ -59,22 +59,23 @@ function init() {
 
     // soft three-point setup (matches the Blender presentation renders)
     const hemi = new THREE.HemisphereLight(0xffffff, 0x8a8299, 0.45);
-    const key = new THREE.DirectionalLight(0xfff1e4, 2.6);
-    key.position.set(-1.6, 2.2, 2.4);
-    const fill = new THREE.DirectionalLight(0xe6eeff, 0.6);
-    fill.position.set(2.2, 0.8, 1.8);
+    // key sits lower and more frontal so the top of the head isn't hot
+    const key = new THREE.DirectionalLight(0xfff1e4, 2.0);
+    key.position.set(-1.4, 1.2, 2.6);
+    const fill = new THREE.DirectionalLight(0xe6eeff, 0.9);
+    fill.position.set(2.2, 0.6, 2.0);
     const rim = new THREE.DirectionalLight(0xb9caff, 1.2);
-    rim.position.set(0.8, 2.0, -2.2);
-    // spotlight from straight above: lights the hair and shoulders like a stage light
-    const top = new THREE.SpotLight(0xfff3e0, 5, 0, 0.42, 0.85, 2);
+    rim.position.set(0.8, 1.2, -2.2);
+    // gentle overhead accent on the hair (was a strong stage light)
+    const top = new THREE.SpotLight(0xfff3e0, 1.2, 0, 0.42, 0.95, 2);
     top.position.set(0, 2.3, 0.35);
     top.target.position.set(0, 0.45, 0);
     scene.add(hemi, key, fill, rim, top, top.target);
 
-    // the site is dark-only: dim ambient, strong cool rim to separate him from the background
-    scene.environmentIntensity = 0.22;
-    hemi.intensity = 0.35;
-    rim.intensity = 2.6;
+    // the site is dark-only: softer ambient lifts the shadows so shading reads flatter
+    scene.environmentIntensity = 0.32;
+    hemi.intensity = 0.5;
+    rim.intensity = 1.4;
 
     // ------------------------------------------------------------------ state
     const stage = new THREE.Group();          // pivot at the feet: spin/hop/lean
